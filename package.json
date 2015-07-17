@@ -1,0 +1,25 @@
+{
+  "name": "apiai",
+  "version": "1.0.0",
+  "description": "Node.js SDK for api.ai",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/api-ai/api-ai-node-js.git"
+  },
+  "keywords": [
+    "apiai"
+  ],
+  "author": "Dmitriy Kuragin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/api-ai/api-ai-node-js/issues"
+  },
+  "homepage": "https://github.com/api-ai/api-ai-node-js#readme"
+}
