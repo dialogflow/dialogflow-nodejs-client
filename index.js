@@ -6,6 +6,4 @@
 
 'use strict';
 
-var apiai = require('module/apiai');
-
-exports = module.exports = apiai.createApplication;
+module.exports = require("./module/apiai");
