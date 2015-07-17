@@ -1,21 +1,20 @@
-# api-ai-node-js
-Node.js SDK for Api.ai
+# Node.js SDK for Api.ai
 
-Plugin makes it easy to integrate your Node.js application with [api.ai](http://api.ai) natural language processing service.
+This plugin allows integrating agents from the [Api.ai](http://api.ai) natural language processing service  with your Node.js application. 
 
 * [Installation](#installation)
 * [Usage](#usage)
 
 # Installation
 
-* Make sure that [Node.js](https://nodejs.org/) installed.
-* Install Node.js library with `npm`:
+* Install [Node.js](https://nodejs.org/)
+* Install Api.ai SDK with `npm`:
 ```shell
 npm install apiai-nodejs
 ```
 
 # Usage
-* Create `main.js` file. Insert into following code.
+* Create `main.js` file with the following code:
 ```javascript
 var apiai = require('apiai');
 
@@ -37,4 +36,4 @@ request.end()
 ```shell
 node main.js
 ```
-* Your can find more examples in [`examples`](examples) directiry.
+* Your can find more examples in [`examples`](examples) directory.
