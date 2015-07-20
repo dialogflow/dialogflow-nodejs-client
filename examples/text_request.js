@@ -1,7 +1,7 @@
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
- * MIT Licensed
+ * Apache 2.0 Licensed
  */
 
 // var apiai = require("../../apiai");
