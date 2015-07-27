@@ -10,7 +10,7 @@ This plugin allows integrating agents from the [Api.ai](http://api.ai) natural l
 * Install [Node.js](https://nodejs.org/)
 * Install Api.ai SDK with `npm`:
 ```shell
-npm install apiai-nodejs
+npm install apiai
 ```
 
 # Usage
