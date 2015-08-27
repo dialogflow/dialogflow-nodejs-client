@@ -7,16 +7,17 @@
 var http = require('http');
 var apiai = require("../module/apiai");
 
-var app = apiai("ACCESS_TOKEN", "SUBSCRIPTION_KEY");
+var app = apiai("09604c7f91ce4cd8a4ede55eb5340b9d", "4c91a8e5-275f-4bf0-8f94-befa78ef92cd");
 
 var server = http.createServer(function(request, response) {
     if (request.method = 'POST' && request.url == '/upload') {
-        var outStream = fs.createWriteStream('qwe.wav');
+        // var outStream = fs.createWriteStream('qwe.wav');
         var voiceRequest = app.voiceRequest();
 
         voiceRequest.on('response', function(_response) {
-            var json = JSON.stringify({'resolvedQuery': _response['result']['resolvedQuery']})
-            response.end(json);
+            response.end(JSON.stringify(_response));
+            // var json = JSON.stringify({'resolvedQuery': _response['result']['resolvedQuery']})
+            // response.end(json);
         });
 
         voiceRequest.on('error', function(error) {
