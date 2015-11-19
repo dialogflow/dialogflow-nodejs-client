@@ -12,7 +12,7 @@ var util = require('util');
 var TextRequest = require('./text_request').TextRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
 
-var version = '20150415'
+var version = '20150910'
 
 var language = 'en'
 
