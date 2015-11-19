@@ -43,6 +43,10 @@ function Request (application, options) {
         self.sessionId = options.sessionId;
     }
 
+    if ('version' in options) {
+        self.version = options.version
+    }
+
     var requestOptions = self._requestOptions();
 
     var request = http.request(requestOptions, function(response) {
@@ -76,10 +80,17 @@ Request.prototype._headers = function() {
 
 Request.prototype._requestOptions = function() {
     var self = this;
+
+    var fullPath = self.path
     
+    if (self.hasOwnProperty("version")) {
+
+        fullPath += '?v=' + self.version
+    }
+
     return {
         hostname: self.hostname,
-        path: self.path,
+        path: fullPath,
         method: 'POST',
         headers: self._headers()
     };
@@ -119,14 +130,3 @@ Request.prototype.write = function(chunk) {
 Request.prototype.end = function() {
     this.request.end();
 };
-
-
-// util.inherits(TextRequest, Request);
-
-// function TextRequest (application, query, options) {
-//     var self = this;
-
-//     self.query = query;
-
-//     TextRequest.super_.apply(this, application, options);
-// }

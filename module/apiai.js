@@ -45,12 +45,16 @@ function Application (clientAccessToken, subscriptionKey, options) {
 
     self.hostname = options.hostname || hostname;
     self.path = options.path || path;
-    self.varsion = options.version || version;
+    self.version = options.version || version;
 };
 
 Application.prototype.textRequest = function(query, options) {
     var self = this;
     var opt = options || {};
+
+    if (!('version' in opt)) {
+        opt.version = self.version
+    }
 
     return new TextRequest(self, query, opt);
 };
@@ -59,7 +63,9 @@ Application.prototype.voiceRequest = function(options) {
     var self = this;
     var opt = options || {};
 
+    if (!('version' in opt)) {
+        opt.version = self.version
+    }
+
     return new VoiceRequest(self, opt);
 };
-
-

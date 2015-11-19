@@ -64,14 +64,3 @@ VoiceRequest.prototype.end = function() {
 
     VoiceRequest.super_.prototype.end.apply(this, arguments);
 };
-
-// VoiceRequest.prototype.write = function(chunk) {
-//     var self = this;
-
-//     console.log(chunk);
-
-//     VoiceRequest.super_.prototype.write.apply(this, arguments);
-// };
-
-
-
