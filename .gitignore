@@ -28,3 +28,7 @@ node_modules
 
 # Mac OS
 .DS_Store
+
+# IDEA
+api-ai-node-js.iml
+.idea/
