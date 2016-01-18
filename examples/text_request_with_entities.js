@@ -29,7 +29,7 @@ var entities = [
                                     }
                                 ]
                     }
-                ]
+                ];
 
 var request = app.textRequest('Hello ori', {'entities': entities});
 
@@ -41,4 +41,4 @@ request.on('error', function(error) {
     console.log(error);
 });
 
-request.end()
+request.end();

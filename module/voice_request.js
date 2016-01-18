@@ -11,7 +11,7 @@ var util = require('util');
 
 exports.VoiceRequest = module.exports.VoiceRequest = VoiceRequest;
 
-var CRLF = '\r\n'
+var CRLF = '\r\n';
 
 util.inherits(VoiceRequest, QueryRequest);
 
@@ -26,7 +26,7 @@ function VoiceRequest (application, options) {
 
 VoiceRequest.prototype._generateBoundary = function() {
     return (new Date()).getTime().toString();
-}
+};
 
 VoiceRequest.prototype._headers = function() {
     var self = this;
@@ -46,7 +46,7 @@ VoiceRequest.prototype._sendMetaData = function() {
     data += 'Content-Disposition: form-data; name="request"' + CRLF;
     data += "Content-Type: application/json" + CRLF + CRLF;
 
-    data += JSON.stringify(self._jsonRequestParameters())
+    data += JSON.stringify(self._jsonRequestParameters());
 
     data += CRLF + '--' + self.boundary + CRLF;
     data += 'Content-Disposition: form-data; name="voiceData"' + CRLF;
