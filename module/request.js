@@ -56,7 +56,6 @@ function Request (application, options) {
 
         response.on('end', function() {
             try {
-                serialized_json_body = JSON.parse(body);
                 self.emit('response', JSON.parse(body));
             } catch(error) {
                 self.emit('error', error);
