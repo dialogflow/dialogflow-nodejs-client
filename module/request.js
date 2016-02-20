@@ -25,8 +25,6 @@ function Request (application, options) {
     self.path = application.path;
     self.timezone = application.timezone;
 
-
-
     if ('resetContexts' in options) {
         self.resetContexts = options.resetContexts;
     }
@@ -57,7 +55,12 @@ function Request (application, options) {
         });
 
         response.on('end', function() {
-            self.emit('response', JSON.parse(body))
+            try {
+                serialized_json_body = JSON.parse(body);
+                self.emit('response', JSON.parse(body));
+            } catch(error) {
+                self.emit('error', error);
+            }
         });
     });
 
