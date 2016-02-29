@@ -23,7 +23,7 @@ function TextRequest (application, query, options) {
 TextRequest.prototype._headers = function() {
     var headers = TextRequest.super_.prototype._headers.apply(this, arguments);
 
-    headers['Content-Type'] = 'application/json';
+    headers['Content-Type'] = 'application/json; charset=utf-8';
 
     return headers;
 };
