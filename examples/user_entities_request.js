@@ -11,8 +11,11 @@ var apiai = require("apiai")
 
 var app = apiai("YOUR_ACCESS_TOKEN", "YOUR_SUBSCRIPTION_KEY");
 
+var sessionId = "Some unique sessionId for identify unique user";
+
 var user_entities = [{
     name: 'Application',
+    sessionId: sessionId,
     extend: false,
     entries: [
         {
