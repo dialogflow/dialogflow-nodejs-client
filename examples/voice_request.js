@@ -7,13 +7,13 @@
 var fs = require("fs");
 var apiai = require("../module/apiai");
 
-var app = apiai("3921dd71224b4a888e18ff2815f3750e", "dd4f3798-58c8-45fd-8074-ecc8cfe0635f", {
+// var app = apiai("YOUR_ACCESS_TOKEN", "YOUR_SUBSCRIPTION_KEY");
+
+var app = apiai("YOUR_ACCESS_TOKEN", "YOUR_SUBSCRIPTION_KEY", {
     language: 'ru'
 });
 
 var request = app.voiceRequest();
-
-// request.language = 'ru';
 
 request.on('response', function(response) {
     console.log(response);

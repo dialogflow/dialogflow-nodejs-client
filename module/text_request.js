@@ -6,12 +6,12 @@
 
 'use strict';
 
-var Request = require('./request').Request;
+var QueryRequest = require('./query_request').QueryRequest;
 var util = require('util');
 
 exports.TextRequest = module.exports.TextRequest = TextRequest;
 
-util.inherits(TextRequest, Request);
+util.inherits(TextRequest, QueryRequest);
 
 function TextRequest (application, query, options) {
     TextRequest.super_.apply(this, [application, options]);

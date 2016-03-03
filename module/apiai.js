@@ -11,13 +11,11 @@ var util = require('util');
 
 var TextRequest = require('./text_request').TextRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
+var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest;
 
 var version = '20150910'
-
 var language = 'en'
-
 var hostname = 'api.api.ai'
-var path = '/v1/query'
 
 function createApplication(clientAccessToken, subscriptionKey, options) {
     var options = options || {};
@@ -44,7 +42,6 @@ function Application (clientAccessToken, subscriptionKey, options) {
     self.subscriptionKey = subscriptionKey;
 
     self.hostname = options.hostname || hostname;
-    self.path = options.path || path;
     self.version = options.version || version;
 };
 
@@ -68,4 +65,11 @@ Application.prototype.voiceRequest = function(options) {
     }
 
     return new VoiceRequest(self, opt);
+};
+
+Application.prototype.userEntitiesRequest = function(user_entities, options) {
+    var self = this;
+    var opt = options || {};
+
+    return new UserEntitiesRequest(self, user_entities, opt);
 };

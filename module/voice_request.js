@@ -6,14 +6,14 @@
 
 'use strict';
 
-var Request = require('./request').Request;
+var QueryRequest = require('./query_request').QueryRequest;
 var util = require('util');
 
 exports.VoiceRequest = module.exports.VoiceRequest = VoiceRequest;
 
 var CRLF = '\r\n'
 
-util.inherits(VoiceRequest, Request);
+util.inherits(VoiceRequest, QueryRequest);
 
 function VoiceRequest (application, options) {
     var self = this;
