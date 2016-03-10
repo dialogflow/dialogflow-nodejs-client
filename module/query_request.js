@@ -35,7 +35,7 @@ function QueryRequest (application, options) {
     }
 
     if ('version' in options) {
-        self.version = options.version
+        self.version = options.version;
     }
 
     QueryRequest.super_.apply(this, arguments);
@@ -44,16 +44,16 @@ function QueryRequest (application, options) {
 QueryRequest.prototype._requestOptions = function() {
     var self = this;
 
-    var path = '/v1/query'
+    var path = 'query';
     
     if (self.hasOwnProperty("version")) {
-        path += '?v=' + self.version
+        path += '?v=' + self.version;
     }
 
     var request_options = QueryRequest.super_.prototype._requestOptions.apply(this, arguments);
 
-    request_options['path'] = path
-    request_options['method'] = 'POST'
+    request_options['path'] = self.endpoint + path;
+    request_options['method'] = 'POST';
 
     return request_options
 };

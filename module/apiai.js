@@ -16,6 +16,7 @@ var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest
 var version = '20150910'
 var language = 'en'
 var hostname = 'api.api.ai'
+var endpoint = '/v1/'
 
 function createApplication(clientAccessToken, subscriptionKey, options) {
     var options = options || {};
@@ -43,11 +44,17 @@ function Application (clientAccessToken, subscriptionKey, options) {
 
     self.hostname = options.hostname || hostname;
     self.version = options.version || version;
+
+    self.endpoint = options.endpoint || endpoint;
 };
 
 Application.prototype.textRequest = function(query, options) {
     var self = this;
     var opt = options || {};
+
+    if (!('endpoint' in opt)) {
+        opt.endpoint = self.endpoint;
+    }
 
     if (!('version' in opt)) {
         opt.version = self.version
@@ -60,6 +67,10 @@ Application.prototype.voiceRequest = function(options) {
     var self = this;
     var opt = options || {};
 
+    if (!('endpoint' in opt)) {
+        opt.endpoint = self.endpoint;
+    }
+
     if (!('version' in opt)) {
         opt.version = self.version
     }
@@ -70,6 +81,10 @@ Application.prototype.voiceRequest = function(options) {
 Application.prototype.userEntitiesRequest = function(user_entities, options) {
     var self = this;
     var opt = options || {};
+
+    if (!('endpoint' in opt)) {
+        opt.endpoint = self.endpoint;
+    }
 
     return new UserEntitiesRequest(self, user_entities, opt);
 };

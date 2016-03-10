@@ -4,8 +4,6 @@
  * Apache 2.0 Licensed
  */
 
-// var apiai = require("../../apiai");
-// var apiai = require("apiai");
 // var apiai = require("../module/apiai");
 var apiai = require("apiai")
 

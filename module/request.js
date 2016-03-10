@@ -22,6 +22,8 @@ function Request (application, options) {
 
     self.hostname = application.hostname;
 
+    self.endpoint = options.endpoint;
+
     var requestOptions = self._requestOptions();
 
     var request = http.request(requestOptions, function(response) {
