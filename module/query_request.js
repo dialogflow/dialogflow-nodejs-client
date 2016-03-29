@@ -18,6 +18,10 @@ function QueryRequest (application, options) {
 
     self.language = application.language;
 
+    if ('timezone' in options) {
+        self.timezone = options.timezone;
+    }  
+  
     if ('resetContexts' in options) {
         self.resetContexts = options.resetContexts;
     }
