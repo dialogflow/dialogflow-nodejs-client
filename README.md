@@ -18,7 +18,7 @@ npm install apiai
 ```javascript
 var apiai = require('apiai');
 
-var app = apiai("<your client access token>", "<your client subscription key>");
+var app = apiai("<your client access token>");
 
 var request = app.textRequest('<Your text query>');
 
