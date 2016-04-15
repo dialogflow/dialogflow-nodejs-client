@@ -18,7 +18,6 @@ function Request (application, options) {
     var self = this;
 
     self.clientAccessToken = application.clientAccessToken;
-    self.subscriptionKey = application.subscriptionKey;
 
     self.hostname = application.hostname;
 
@@ -55,7 +54,6 @@ Request.prototype._headers = function() {
     return {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + self.clientAccessToken,
-        'ocp-apim-subscription-key': self.subscriptionKey,
     };
 };
 

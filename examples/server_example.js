@@ -5,9 +5,10 @@
  */
 
 var http = require('http');
-var apiai = require("../module/apiai");
+// var apiai = require("../module/apiai");
+var apiai = require("apiai")
 
-var app = apiai("09604c7f91ce4cd8a4ede55eb5340b9d", "4c91a8e5-275f-4bf0-8f94-befa78ef92cd");
+var app = apiai("YOUR_ACCESS_TOKEN");
 
 var server = http.createServer(function(request, response) {
     if (request.method = 'POST' && request.url == '/upload') {

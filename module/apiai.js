@@ -18,29 +18,48 @@ var language = 'en'
 var hostname = 'api.api.ai'
 var endpoint = '/v1/'
 
-function createApplication(clientAccessToken, subscriptionKey, options) {
+function createApplicationDeprecated(clientAccessToken, subscriptionKey, options) {
     var options = options || {};
 
     if (!clientAccessToken) {
         throw new Error('\'clientAccessToken\' cannot be empty.');
     }
 
-    if (!subscriptionKey) {
-        throw new Error('\'subscriptionKey\' cannot be empty.');
+    return new Application(clientAccessToken, options);
+}
+
+function createApplicationNew(clientAccessToken, options) {
+    var options = options || {};
+
+    if (!clientAccessToken) {
+        throw new Error('\'clientAccessToken\' cannot be empty.');
     }
 
-    return new Application(clientAccessToken, subscriptionKey, options);
+    return new Application(clientAccessToken, options);
+}
+
+function createApplication(args) {
+    if (arguments.length > 1) {
+        if (typeof arguments[1] == "string") {
+            return createApplicationDeprecated.apply(this, arguments)
+        } else if (typeof arguments[1] == "object") {
+            return createApplicationNew.apply(this, arguments)
+        } else {
+            throw new Error('Wrong parameters of initialization.');
+        }
+    } else {
+        return createApplicationNew.apply(this, arguments)
+    }
 }
 
 exports = module.exports = createApplication;
 
-function Application (clientAccessToken, subscriptionKey, options) {
+function Application (clientAccessToken, options) {
     var self = this;
 
     self.language = options.language || language;
 
     self.clientAccessToken = clientAccessToken;
-    self.subscriptionKey = subscriptionKey;
 
     self.hostname = options.hostname || hostname;
     self.version = options.version || version;
