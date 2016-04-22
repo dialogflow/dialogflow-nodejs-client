@@ -17,6 +17,7 @@ var version = '20150910'
 var language = 'en'
 var hostname = 'api.api.ai'
 var endpoint = '/v1/'
+var defaultSource = 'node'
 
 function createApplicationDeprecated(clientAccessToken, subscriptionKey, options) {
     var options = options || {};
@@ -65,6 +66,7 @@ function Application (clientAccessToken, options) {
     self.version = options.version || version;
 
     self.endpoint = options.endpoint || endpoint;
+    self.requestSource = options.requestSource || defaultSource;
 };
 
 Application.prototype.textRequest = function(query, options) {

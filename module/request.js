@@ -22,6 +22,7 @@ function Request (application, options) {
     self.hostname = application.hostname;
 
     self.endpoint = options.endpoint;
+    self.requestSource = application.requestSource;
 
     var requestOptions = self._requestOptions();
 
@@ -54,6 +55,7 @@ Request.prototype._headers = function() {
     return {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + self.clientAccessToken,
+        'api-request-source': self.requestSource
     };
 };
 

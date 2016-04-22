@@ -42,6 +42,10 @@ function QueryRequest (application, options) {
         self.version = options.version;
     }
 
+    if ('requestSource' in application) {
+        self.requestSource = application.requestSource;
+    }
+
     QueryRequest.super_.apply(this, arguments);
 }
 
