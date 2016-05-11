@@ -27,8 +27,6 @@ function Request (application, options) {
     var requestOptions = self._requestOptions();
 
     var request = http.request(requestOptions, function(response) {
-        console.log(response.statusCode);
-
         if (response.statusCode >= 200 && response.statusCode <= 299) {
             var body = '';
 
