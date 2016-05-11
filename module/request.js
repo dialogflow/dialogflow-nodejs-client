@@ -27,19 +27,26 @@ function Request (application, options) {
     var requestOptions = self._requestOptions();
 
     var request = http.request(requestOptions, function(response) {
-        var body = '';
+        console.log(response.statusCode);
 
-        response.on('data', function(chunk) {
-            body += chunk;
-        });
+        if (response.statusCode >= 200 && response.statusCode <= 299) {
+            var body = '';
 
-        response.on('end', function() {
-            try {
-                self.emit('response', JSON.parse(body));
-            } catch (error) {
-                self.emit('error', error);
-            }
-        });
+            response.on('data', function(chunk) {
+                body += chunk;
+            });
+
+            response.on('end', function() {
+                try {
+                    self.emit('response', JSON.parse(body));
+                } catch (error) {
+                    self.emit('error', error);
+                }
+            });
+        } else {
+            var error = 'Server response error with status code: ' + response.statusCode;
+            self.emit('error', error);
+        }
     });
 
     request.on('error', function(error) {
