@@ -1,8 +1,8 @@
-/*!
+!
  * apiai
  * Copyright(c) 2015 http://api.ai/
  * Apache 2.0 Licensed
- */
+
 
 'use strict';
 
@@ -27,24 +27,24 @@ function Request (application, options) {
     var requestOptions = self._requestOptions();
 
     var request = http.request(requestOptions, function(response) {
-        if (response.statusCode >= 200 && response.statusCode <= 299) {
-            var body = '';
+        var body = '';
 
-            response.on('data', function(chunk) {
-                body += chunk;
-            });
+        response.on('data', function(chunk) {
+            body += chunk;
+        });
 
-            response.on('end', function() {
+        response.on('end', function() {
+            if (response.statusCode >= 200 && response.statusCode <= 299) {
                 try {
                     self.emit('response', JSON.parse(body));
                 } catch (error) {
                     self.emit('error', error);
                 }
-            });
-        } else {
-            var error = 'Server response error with status code: ' + response.statusCode;
-            self.emit('error', error);
-        }
+            } else {
+                var error = 'Server response error with status code: ' + response.statusCode + '\n' + body;
+                self.emit('error', error);
+            }
+        });
     });
 
     request.on('error', function(error) {
