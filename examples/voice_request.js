@@ -9,9 +9,7 @@ var fs = require("fs");
 // var apiai = require("../module/apiai");
 var apiai = require("apiai");
 
-// var app = apiai("YOUR_ACCESS_TOKEN", "YOUR_SUBSCRIPTION_KEY");
-
-var app = apiai("YOUR_ACCESS_TOKEN", "YOUR_SUBSCRIPTION_KEY", {
+var app = apiai("YOUR_ACCESS_TOKEN", {
     language: 'ru'
 });
 
