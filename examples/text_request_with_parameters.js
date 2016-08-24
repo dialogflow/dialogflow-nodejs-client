@@ -7,7 +7,7 @@
 // var apiai = require("../module/apiai");
 var apiai = require("apiai");
 
-var app = apiai("138c6f0337a34cfa8022c9aa29ade48a");
+var app = apiai("YOUR_ACCESS_TOKEN");
 
 var options = {
     sessionId: '<UNIQE SESSION ID>'
