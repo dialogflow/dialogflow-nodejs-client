@@ -69,10 +69,10 @@ function Application (clientAccessToken, options) {
     self.requestSource = options.requestSource || defaultSource;
 
 
-    if ('is_secure' in options) {
-        self.is_secure = options.is_secure;
+    if ('secure' in options) {
+        self.secure = options.secure;
     } else {
-        self.is_secure = true;
+        self.secure = true;
     }
 };
 
