@@ -67,6 +67,13 @@ function Application (clientAccessToken, options) {
 
     self.endpoint = options.endpoint || endpoint;
     self.requestSource = options.requestSource || defaultSource;
+
+
+    if ('is_secure' in options) {
+        self.is_secure = options.is_secure;
+    } else {
+        self.is_secure = true;
+    }
 };
 
 Application.prototype.textRequest = function(query, options) {

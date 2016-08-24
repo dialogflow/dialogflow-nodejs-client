@@ -8,7 +8,8 @@
 
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
-var http = require('https');
+var https = require('https');
+var http = require('http');
 
 exports.Request = module.exports.Request = Request;
 
@@ -24,9 +25,11 @@ function Request (application, options) {
     self.endpoint = options.endpoint;
     self.requestSource = application.requestSource;
 
+    var _http = application.is_secure ? https : http;
+
     var requestOptions = self._requestOptions();
 
-    var request = http.request(requestOptions, function(response) {
+    var request = _http.request(requestOptions, function(response) {
         var body = '';
 
         response.on('data', function(chunk) {
