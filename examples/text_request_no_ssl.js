@@ -8,7 +8,7 @@
 var apiai = require("apiai");
 
 var options = {
-    is_secure: false,
+    secure: false,
     hostname: 'openapi-dev',
     endpoint: '/api/'
 };

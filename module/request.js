@@ -25,7 +25,7 @@ function Request (application, options) {
     self.endpoint = options.endpoint;
     self.requestSource = application.requestSource;
 
-    var _http = application.is_secure ? https : http;
+    var _http = application.secure ? https : http;
 
     var requestOptions = self._requestOptions();
 
