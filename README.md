@@ -32,6 +32,18 @@ request.on('error', function(error) {
 
 request.end()
 ```
+# Intents Requests
+* Make requests to the intents endpoint
+```javascript
+// get the data for a particular intent and add some learning to it
+var request = app.intentsRequest({method: "GET", intentId: intentId});
+request.on('response', function(intentData) {
+      intentData.userSays.push({data: [{ text: "i want you to learn to speak chinese" }]});
+      var putRequest = app.intentsRequest({method: "PUT", intentId: intentId, intent: intentData});
+      putRequest.end();
+});
+request.done();
+```
 * Run following command.
 ```shell
 node main.js

@@ -12,6 +12,7 @@ var util = require('util');
 var TextRequest = require('./text_request').TextRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
 var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest;
+var IntentsRequest = require('./intents_request').IntentsRequest;
 
 var version = '20150910'
 var language = 'en'
@@ -89,6 +90,21 @@ Application.prototype.textRequest = function(query, options) {
     }
 
     return new TextRequest(self, query, opt);
+};
+
+Application.prototype.intentsRequest = function(options) {
+    var self = this;
+    var opt = options || {};
+
+    if (!('endpoint' in opt)) {
+        opt.endpoint = self.endpoint;
+    }
+
+    if (!('version' in opt)) {
+        opt.version = self.version
+    }
+
+    return new IntentsRequest(self, opt);
 };
 
 Application.prototype.voiceRequest = function(options) {
