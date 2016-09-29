@@ -30,7 +30,7 @@ request.on('error', function(error) {
     console.log(error);
 });
 
-request.end()
+request.end();
 ```
 * Run following command.
 ```shell
