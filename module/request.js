@@ -38,10 +38,15 @@ function Request (application, options) {
 
         response.on('end', function() {
             if (response.statusCode >= 200 && response.statusCode <= 299) {
+                var json_body = null;
                 try {
-                    self.emit('response', JSON.parse(body));
+                    json_body = JSON.parse(body);
                 } catch (error) {
                     self.emit('error', error);
+                }
+
+                if (json_body != null) {
+                    self.emit('response', json_body);
                 }
             } else {
                 var error = 'Server response error with status code: ' + response.statusCode + '\n' + body;

@@ -68,7 +68,6 @@ function Application (clientAccessToken, options) {
     self.endpoint = options.endpoint || endpoint;
     self.requestSource = options.requestSource || defaultSource;
 
-
     if ('secure' in options) {
         self.secure = options.secure;
     } else {
