@@ -9,6 +9,7 @@
 var util = require('util');
 
 
+var ContextsRequest = require('./contexts_request').ContextsRequest;
 var TextRequest = require('./text_request').TextRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
 var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest;
@@ -73,6 +74,17 @@ function Application (clientAccessToken, options) {
     } else {
         self.secure = true;
     }
+};
+
+Application.prototype.contextsRequest = function(contexts, options) {
+    var self = this;
+    var opt = options || {};
+
+    if (!('endpoint' in opt)) {
+        opt.endpoint = self.endpoint;
+    }
+
+    return new ContextsRequest(self, contexts, opt);
 };
 
 Application.prototype.textRequest = function(query, options) {
