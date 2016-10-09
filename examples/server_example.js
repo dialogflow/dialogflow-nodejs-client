@@ -6,7 +6,7 @@
 
 var http = require('http');
 // var apiai = require("../module/apiai");
-var apiai = require("apiai")
+var apiai = require("apiai");
 
 var app = apiai("YOUR_ACCESS_TOKEN");
 
