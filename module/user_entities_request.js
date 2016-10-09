@@ -35,7 +35,7 @@ UserEntitiesRequest.prototype._requestOptions = function() {
     request_options.path = this.endpoint + 'userEntities';
     request_options.method = 'POST';
 
-    return request_options
+    return request_options;
 };
 
 UserEntitiesRequest.prototype.end = function() {
