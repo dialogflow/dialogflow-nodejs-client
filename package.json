@@ -1,6 +1,6 @@
 {
   "name": "apiai",
-  "version": "2.0.7",
+  "version": "3.0.0",
   "description": "Node.js SDK for api.ai",
   "main": "index.js",
   "directories": {
