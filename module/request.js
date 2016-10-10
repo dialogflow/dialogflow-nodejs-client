@@ -50,9 +50,8 @@ function Request (application, options) {
                 if (json_body != null) {
                     self.emit('response', json_body);
                 }
-            } else {
-                var error = 'Server response error with status code: ' + response.statusCode + '\n' + body;
-                self.emit('error', error);
+            } else {                
+                self.emit('error', JSON.parse(body));
             }
         });
     });

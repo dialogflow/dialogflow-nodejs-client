@@ -7,7 +7,7 @@
 'use strict';
 
 // var apiai = require("../module/apiai");
-var apiai = require("apiai")
+var apiai = require("apiai");
 
 var app = apiai("YOUR_ACCESS_TOKEN");
 
@@ -50,11 +50,11 @@ user_entities_request.on('response', function(response) {
         console.log(error);
     });
 
-    request.end()
+    request.end();
 });
 
 user_entities_request.on('error', function(error) {
     console.log(error);
 });
 
-user_entities_request.end()
+user_entities_request.end();

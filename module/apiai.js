@@ -14,11 +14,11 @@ var TextRequest = require('./text_request').TextRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
 var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest;
 
-var version = '20150910'
-var language = 'en'
-var hostname = 'api.api.ai'
-var endpoint = '/v1/'
-var defaultSource = 'node'
+var version = '20150910';
+var language = 'en';
+var hostname = 'api.api.ai';
+var endpoint = '/v1/';
+var defaultSource = 'node';
 
 function createApplicationDeprecated(clientAccessToken, subscriptionKey, options) {
     var options = options || {};
@@ -43,14 +43,14 @@ function createApplicationNew(clientAccessToken, options) {
 function createApplication(args) {
     if (arguments.length > 1) {
         if (typeof arguments[1] == "string") {
-            return createApplicationDeprecated.apply(this, arguments)
+            return createApplicationDeprecated.apply(this, arguments);
         } else if (typeof arguments[1] == "object") {
-            return createApplicationNew.apply(this, arguments)
+            return createApplicationNew.apply(this, arguments);
         } else {
             throw new Error('Wrong parameters of initialization.');
         }
     } else {
-        return createApplicationNew.apply(this, arguments)
+        return createApplicationNew.apply(this, arguments);
     }
 }
 
@@ -88,7 +88,7 @@ Application.prototype.textRequest = function(query, options) {
     }
 
     if (!('version' in opt)) {
-        opt.version = self.version
+        opt.version = self.version;
     }
 
     return new TextRequest(self, query, opt);
@@ -103,7 +103,7 @@ Application.prototype.voiceRequest = function(options) {
     }
 
     if (!('version' in opt)) {
-        opt.version = self.version
+        opt.version = self.version;
     }
 
     return new VoiceRequest(self, opt);
