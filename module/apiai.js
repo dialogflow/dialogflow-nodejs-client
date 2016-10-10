@@ -7,7 +7,8 @@
 'use strict';
 
 var util = require('util');
-
+var https = require('https');
+var http = require('http');
 
 var TextRequest = require('./text_request').TextRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
@@ -73,6 +74,9 @@ function Application (clientAccessToken, options) {
     } else {
         self.secure = true;
     }
+
+    var _http = self.secure ? https : http;
+    self._agent = new _http.Agent({ keepAlive: true });
 };
 
 Application.prototype.textRequest = function(query, options) {

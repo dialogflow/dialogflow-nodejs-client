@@ -29,6 +29,8 @@ function Request (application, options) {
 
     var requestOptions = self._requestOptions();
 
+    requestOptions.agent = application._agent;
+
     var request = _http.request(requestOptions, function(response) {
         var body = '';
 
