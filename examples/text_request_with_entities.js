@@ -5,7 +5,7 @@
  */
 
 // var apiai = require("../module/apiai");
-var apiai = require("apiai")
+var apiai = require("apiai");
 
 var app = apiai("ACCESS_TOKEN");
 

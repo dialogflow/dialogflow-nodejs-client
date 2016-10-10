@@ -16,7 +16,7 @@ util.inherits(UserEntitiesRequest, Request);
 function UserEntitiesRequest(application, user_entities, options) {
     var self = this;
 
-    self.user_entities = user_entities
+    self.user_entities = user_entities;
 
     UserEntitiesRequest.super_.apply(this, [application, options]);
 }
@@ -32,10 +32,10 @@ UserEntitiesRequest.prototype._headers = function() {
 UserEntitiesRequest.prototype._requestOptions = function() {
     var request_options = UserEntitiesRequest.super_.prototype._requestOptions.apply(this, arguments);
 
-    request_options.path = this.endpoint + 'userEntities'
-    request_options.method = 'POST'
+    request_options.path = this.endpoint + 'userEntities';
+    request_options.method = 'POST';
 
-    return request_options
+    return request_options;
 };
 
 UserEntitiesRequest.prototype.end = function() {
