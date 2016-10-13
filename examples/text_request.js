@@ -7,8 +7,7 @@
 var apiai = require("../module/apiai");
 // var apiai = require("apiai");
 
-// var app = apiai("YOUR_ACCESS_TOKEN");
-var app = apiai("09604c7f91ce4cd8a4ede55eb5340b9d");
+var app = apiai("YOUR_ACCESS_TOKEN");
 
 var request = app.textRequest('Hello');
 

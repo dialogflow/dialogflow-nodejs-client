@@ -11,6 +11,8 @@ var util = require('util');
 var https = require('https');
 var http = require('http');
 
+var ServerError = require('./exceptions').ServerError;
+
 exports.Request = module.exports.Request = Request;
 
 util.inherits(Request, EventEmitter);
@@ -40,18 +42,23 @@ function Request (application, options) {
 
         response.on('end', function() {
             if (response.statusCode >= 200 && response.statusCode <= 299) {
-                var json_body = null;
                 try {
-                    json_body = JSON.parse(body);
-                } catch (error) {
-                    self.emit('error', error);
-                }
-
-                if (json_body != null) {
+                    var json_body = JSON.parse(body);
                     self.emit('response', json_body);
+                } catch (error) {
+                    // JSON.parse can throw only one exception, SyntaxError
+                    // All another exceptions throwing from user function,
+                    // because it just rethrowing for better error handling.
+
+                    if (error instanceof SyntaxError) {
+                        self.emit('error', error);
+                    } else {
+                        throw error;
+                    }
                 }
-            } else {                
-                self.emit('error', JSON.parse(body));
+            } else {
+                var error = new ServerError(response.statusCode, body, 'Wrong response status code.');
+                self.emit('error', error);
             }
         });
     });
