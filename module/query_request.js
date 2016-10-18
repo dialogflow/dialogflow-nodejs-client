@@ -20,8 +20,8 @@ function QueryRequest (application, options) {
 
     if ('timezone' in options) {
         self.timezone = options.timezone;
-    }  
-  
+    }
+
     if ('resetContexts' in options) {
         self.resetContexts = options.resetContexts;
     }
@@ -46,6 +46,10 @@ function QueryRequest (application, options) {
         self.requestSource = application.requestSource;
     }
 
+    if ('originalRequest' in options) {
+        self.originalRequest = options.originalRequest;
+    }
+
     QueryRequest.super_.apply(this, arguments);
 }
 
@@ -53,7 +57,7 @@ QueryRequest.prototype._requestOptions = function() {
     var self = this;
 
     var path = 'query';
-    
+
     if (self.hasOwnProperty("version")) {
         path += '?v=' + self.version;
     }
@@ -68,7 +72,7 @@ QueryRequest.prototype._requestOptions = function() {
 
 QueryRequest.prototype._jsonRequestParameters = function() {
     var self = this;
-    
+
     var json = {
         'lang': self.language,
         'timezone': self.timezone
@@ -88,6 +92,10 @@ QueryRequest.prototype._jsonRequestParameters = function() {
 
     if ('sessionId' in self) {
         json['sessionId'] = self.sessionId;
+    }
+
+    if ('originalRequest' in self) {
+        json['originalRequest'] = self.originalRequest;
     }
 
     return json;
