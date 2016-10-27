@@ -14,6 +14,7 @@ var ContextsRequest = require('./contexts_request').ContextsRequest;
 var TextRequest = require('./text_request').TextRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
 var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest;
+var TTSRequest = require('./tts_request').TTSRequest;
 
 var version = '20150910';
 var language = 'en';
@@ -130,4 +131,15 @@ Application.prototype.userEntitiesRequest = function(user_entities, options) {
     }
 
     return new UserEntitiesRequest(self, user_entities, opt);
+};
+
+Application.prototype.ttsRequest = function(text, options) {
+    var self = this;
+    var opt = options || {};
+
+    if (!('endpoint' in opt)) {
+        opt.endpoint = self.endpoint;
+    }
+
+    return new TTSRequest(self, text, opt);
 };

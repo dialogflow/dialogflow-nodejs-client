@@ -33,8 +33,14 @@ function Request (application, options) {
 
     requestOptions.agent = application._agent;
 
+    
+    
     var request = _http.request(requestOptions, function(response) {
         var body = '';
+
+        if(requestOptions.writeStream){
+            response.pipe(requestOptions.writeStream);
+        }
 
         response.on('data', function(chunk) {
             body += chunk;
@@ -42,20 +48,27 @@ function Request (application, options) {
 
         response.on('end', function() {
             if (response.statusCode >= 200 && response.statusCode <= 299) {
-                try {
-                    var json_body = JSON.parse(body);
-                    self.emit('response', json_body);
-                } catch (error) {
-                    // JSON.parse can throw only one exception, SyntaxError
-                    // All another exceptions throwing from user function,
-                    // because it just rethrowing for better error handling.
 
-                    if (error instanceof SyntaxError) {
-                        self.emit('error', error);
-                    } else {
-                        throw error;
-                    }
-                }
+                // raw response
+                if(requestOptions.responseFormat=='raw'){ 
+                    self.emit('response', body);  
+                }               
+                // json response
+                else try {
+                        var json_body = JSON.parse(body);
+                        self.emit('response', json_body);                       
+                    } catch (error) {
+                        // JSON.parse can throw only one exception, SyntaxError
+                        // All another exceptions throwing from user function,
+                        // because it just rethrowing for better error handling.
+                        
+                        if (error instanceof SyntaxError) {
+                            self.emit('error', error);
+                        } else {
+                            throw error;
+                        }
+                    }                               
+                
             } else {
                 var error = new ServerError(response.statusCode, body, 'Wrong response status code.');
                 self.emit('error', error);
@@ -85,7 +98,8 @@ Request.prototype._requestOptions = function() {
 
     return {
         hostname: self.hostname,
-        headers: self._headers()
+        headers: self._headers(),
+        responseFormat:'json',
     };
 };
 
