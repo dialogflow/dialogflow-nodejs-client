@@ -14,7 +14,7 @@ var ContextsRequest = require('./contexts_request').ContextsRequest;
 var TextRequest = require('./text_request').TextRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
 var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest;
-
+var EntitiesRequest = require('./entities_request').EntitiesRequest;
 var version = '20150910';
 var language = 'en';
 var hostname = 'api.api.ai';
@@ -130,4 +130,15 @@ Application.prototype.userEntitiesRequest = function(user_entities, options) {
     }
 
     return new UserEntitiesRequest(self, user_entities, opt);
+};
+
+Application.prototype.entitiesRequest = function(entities, options) {
+    var self = this;
+    var opt = options || {};
+
+    if (!('endpoint' in opt)) {
+        opt.endpoint = self.endpoint;
+    }
+
+    return new EntitiesRequest(self, entities, opt);
 };
