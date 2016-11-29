@@ -12,6 +12,7 @@ var http = require('http');
 
 var ContextsRequest = require('./contexts_request').ContextsRequest;
 var TextRequest = require('./text_request').TextRequest;
+var EventRequest = require('./event_request').EventRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
 var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest;
 var TTSRequest = require('./tts_request').TTSRequest;
@@ -106,6 +107,21 @@ Application.prototype.textRequest = function(query, options) {
 
     return new TextRequest(self, query, opt);
 };
+
+Application.prototype.eventRequest = function(event, options) {
+    var self = this;
+    var opt = options || {};
+
+    if (!('endpoint' in opt)) {
+        opt.endpoint = self.endpoint;
+    }
+
+    if (!('version' in opt)) {
+        opt.version = self.version;
+    }
+
+    return new EventRequest(self, event, opt);
+}
 
 Application.prototype.voiceRequest = function(options) {
     var self = this;
