@@ -36,6 +36,14 @@ function QueryRequest (application, options) {
 
     if ('sessionId' in options) {
         self.sessionId = options.sessionId;
+    } else {
+        throw Error(
+            'Now \'sessionId\' is required parameter. Please add this parameter to \'options\' of request.\n' +
+            'Like following example:\n' +
+            '> var app = ...\n' +
+            '> request = app.textRequest("Hello", {sessionId: "UNIQUE_SESSION_ID"})\n' +
+            '> ... \n'
+        );
     }
 
     if ('version' in options) {
