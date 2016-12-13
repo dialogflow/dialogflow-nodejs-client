@@ -4,6 +4,8 @@
  * Apache 2.0 Licensed
  */
 
+'use strict';
+
 var util = require('util');
 var apiai = require("../module/apiai");
 // var apiai = require("apiai");

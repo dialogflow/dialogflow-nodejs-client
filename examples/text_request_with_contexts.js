@@ -9,10 +9,10 @@
 var apiai = require("../module/apiai");
 // var apiai = require("apiai");
 
-var app = apiai("949362b4c9dc4c14a6e05225c88e1fd5");
+var app = apiai("YOUR_ACCESS_TOKEN");
 
 var options = {
-    // sessionId: '123',
+    sessionId: '123',
     contexts: [
         {
             name: 'context_number_one',
