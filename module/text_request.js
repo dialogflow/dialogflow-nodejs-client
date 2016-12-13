@@ -33,7 +33,7 @@ TextRequest.prototype._jsonRequestParameters = function() {
 
     var json = TextRequest.super_.prototype._jsonRequestParameters.apply(this, arguments);
 
-    json['query'] = self.query;
+    json.query = self.query;
 
     return json;
 };

@@ -64,10 +64,10 @@ QueryRequest.prototype._requestOptions = function() {
 
     var request_options = QueryRequest.super_.prototype._requestOptions.apply(this, arguments);
 
-    request_options['path'] = self.endpoint + path;
-    request_options['method'] = 'POST';
+    request_options.path = self.endpoint + path;
+    request_options.method = 'POST';
 
-    return request_options
+    return request_options;
 };
 
 QueryRequest.prototype._jsonRequestParameters = function() {
@@ -79,23 +79,23 @@ QueryRequest.prototype._jsonRequestParameters = function() {
     };
 
     if ('resetContexts' in self) {
-        json['resetContexts'] = self.resetContexts;
+        json.resetContexts = self.resetContexts;
     }
 
     if ('contexts' in self) {
-        json['contexts'] = self.contexts;
+        json.contexts = self.contexts;
     }
 
     if ('entities' in self) {
-        json['entities'] = self.entities;
+        json.entities = self.entities;
     }
 
     if ('sessionId' in self) {
-        json['sessionId'] = self.sessionId;
+        json.sessionId = self.sessionId;
     }
 
     if ('originalRequest' in self) {
-        json['originalRequest'] = self.originalRequest;
+        json.originalRequest = self.originalRequest;
     }
 
     return json;

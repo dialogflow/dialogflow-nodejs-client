@@ -18,7 +18,7 @@ function EventRequest(application, event, options) {
 
     var self = this;
     self.event = event;
-};
+}
 
 EventRequest.prototype._headers = function() {
     var headers = EventRequest.super_.prototype._headers.apply(this, arguments);
@@ -33,7 +33,7 @@ EventRequest.prototype._jsonRequestParameters = function() {
 
     var json = EventRequest.super_.prototype._jsonRequestParameters.apply(this, arguments);
 
-    json['event'] = self.event;
+    json.event = self.event;
 
     return json;
 };

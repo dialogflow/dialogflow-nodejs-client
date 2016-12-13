@@ -16,8 +16,8 @@ util.inherits(ContextsRequest, Request);
 function ContextsRequest(application, contexts, options) {
     var self = this;
 
-    self.contexts = contexts
-    self.sessionId = options.sessionId
+    self.contexts = contexts;
+    self.sessionId = options.sessionId;
 
     ContextsRequest.super_.apply(this, [application, options]);
 }
@@ -33,10 +33,10 @@ ContextsRequest.prototype._headers = function() {
 ContextsRequest.prototype._requestOptions = function() {
     var request_options = ContextsRequest.super_.prototype._requestOptions.apply(this, arguments);
 
-    request_options.path = this.endpoint + 'contexts?sessionId=' + this.sessionId
-    request_options.method = 'POST'
+    request_options.path = this.endpoint + 'contexts?sessionId=' + this.sessionId;
+    request_options.method = 'POST';
 
-    return request_options
+    return request_options;
 };
 
 ContextsRequest.prototype.end = function() {

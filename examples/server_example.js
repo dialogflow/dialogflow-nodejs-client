@@ -11,7 +11,7 @@ var apiai = require("apiai");
 var app = apiai("YOUR_ACCESS_TOKEN");
 
 var server = http.createServer(function(request, response) {
-    if (request.method = 'POST' && request.url == '/upload') {
+    if (request.method == 'POST' && request.url == '/upload') {
         // var outStream = fs.createWriteStream('qwe.wav');
         var voiceRequest = app.voiceRequest();
 

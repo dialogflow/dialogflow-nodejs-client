@@ -4,7 +4,7 @@
  * Apache 2.0 Licensed
  */
 
-var util = require('util')
+var util = require('util');
 var apiai = require("../module/apiai");
 // var apiai = require("apiai");
 
@@ -19,16 +19,16 @@ var event = {
     data: {
         param1: "param1 value",
     }
-}
+};
 
 var options = {
     sessionId: '<UNIQE SESSION ID>'
-}
+};
 
 var request = app.eventRequest(event, options);
 
 request.on('response', function(response) {
-    console.log(util.inspect(response, false, null))
+    console.log(util.inspect(response, false, null));
 });
 
 request.on('error', function(error) {
