@@ -1,29 +1,43 @@
 {
   "name": "apiai",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Node.js SDK for api.ai",
   "main": "index.js",
+  "types": "index.d.ts",
   "directories": {
     "example": "examples"
   },
   "files": [
     "index.js",
+    "index.d.ts",
     "module/"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:live": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./examples/typescript_example.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/api-ai/api-ai-node-js.git"
   },
   "keywords": [
-    "apiai"
+    "apiai",
+    "NLU",
+    "natural",
+    "language",
+    "understanding"
   ],
   "author": "Dmitriy Kuragin",
   "license": "Apache 2.0",
   "bugs": {
     "url": "https://github.com/api-ai/api-ai-node-js/issues"
   },
-  "homepage": "https://github.com/api-ai/api-ai-node-js#readme"
+  "homepage": "https://github.com/api-ai/api-ai-node-js#readme",
+  "devDependencies": {
+    "@types/node": "^6.0.52",
+    "nodemon": "^1.11.0",
+    "ts-node": "^1.7.2",
+    "typescript": "^2.1.4",
+    "typing": "^0.1.9",
+    "typings": "^2.0.0"
+  }
 }

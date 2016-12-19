@@ -25,7 +25,7 @@ var user_entities = [{
         {
             value: 'XCode',
             synonims: ['XCode']
-        }, 
+        },
         {
             value: 'Sublime Text',
             synonims: ['Sublime Text']
