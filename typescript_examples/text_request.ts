@@ -17,5 +17,3 @@ request.on('error', function(error) {
 });
 
 request.end();
-
-

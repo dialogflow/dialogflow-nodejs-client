@@ -101,7 +101,7 @@ declare namespace apiai {
      * Text Request.
      */
     interface EventRequest extends QueryRequest {
-        event: Event
+        event: Event;
     }
 
     /**
@@ -122,18 +122,25 @@ declare namespace apiai {
      * UserEntityEntry model for user entities request.
      */
     interface UserEntityEntry {
-        value: string
-        synonyms: [string]
+        value: string;
+        synonyms: [string];
     }
 
     /**
      * UserEntity model for user entities request.
      */
     interface UserEntity {
-        name: string
-        sessionId: string
-        extend: boolean
-        entries: [UserEntityEntry]
+        name: string;
+        extend: boolean;
+        entries: [UserEntityEntry];
+    }
+
+    /**
+     * UserEntity model for user entities request.
+     */
+    interface UserEntitiesBody {
+        sessionId: string;
+        entities: [UserEntity];
     }
 
     /**
@@ -147,7 +154,7 @@ declare namespace apiai {
      * UserEntities Request.
      */
     interface UserEntitiesRequest extends Request {
-        user_entities: [UserEntity];
+        user_entities_body: UserEntitiesBody;
     }
 
     /**
@@ -170,7 +177,7 @@ declare namespace apiai {
         textRequest(query: string | [string], options: TextRequestOptions): TextRequest
         eventRequest(event: Event, options: EventRequestOptions): EventRequest
         contextsRequest(contexts: [any], options: ContextsRequestOptions): ContextsRequest
-        userEntitiesRequest(user_entities: [UserEntity], options?: UserEntitiesRequestOptions): UserEntitiesRequest
+        userEntitiesRequest(user_entities_body: UserEntitiesBody, options?: UserEntitiesRequestOptions): UserEntitiesRequest
     }
 }
 

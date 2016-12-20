@@ -13,10 +13,10 @@ exports.UserEntitiesRequest = module.exports.UserEntitiesRequest = UserEntitiesR
 
 util.inherits(UserEntitiesRequest, Request);
 
-function UserEntitiesRequest(application, user_entities, options) {
+function UserEntitiesRequest(application, user_entities_body, options) {
     var self = this;
 
-    self.user_entities = user_entities;
+    self.user_entities_body = user_entities_body;
 
     UserEntitiesRequest.super_.apply(this, [application, options]);
 }
@@ -41,7 +41,19 @@ UserEntitiesRequest.prototype._requestOptions = function() {
 UserEntitiesRequest.prototype.end = function() {
     var self = this;
 
-    self.write(JSON.stringify(self.user_entities));
-    
+    if (
+        (!('user_entities_body' in self)) ||
+        (!('entities' in self.user_entities_body))
+       )
+    {
+        throw Error(
+            'Data format for user untities request was changed. \n' +
+            'See details: https://docs.api.ai/docs/userentities \n' +
+            '...or see examples.'
+        );
+    }
+
+    self.write(JSON.stringify(self.user_entities_body));
+
     UserEntitiesRequest.super_.prototype.end.apply(this, arguments);
 };

@@ -4,30 +4,32 @@
 
 import * as apiai from "../";
 
-const app = apiai("YOUR_ACCESS_TOKEN")
+const app = apiai("YOUR_ACCESS_TOKEN");
 
-const sessionId = 'UNIQUE_SESSION_ID'
+const sessionId = 'UNIQUE_SESSION_ID';
 
-var user_entities_request = app.userEntitiesRequest([
-    {
-        name: 'Application',
-        sessionId: sessionId,
-        extend: false,
-        entries: [
-            {
-                value: 'Firefox',
-                synonyms:['Firefox', 'fox']
-            },
-            {
-                value: 'XCode',
-                synonyms:['XCode', 'xcode']
-            }
-        ]
-    }
-]);
+var user_entities_request = app.userEntitiesRequest({
+    sessionId: sessionId,
+    entities: [
+        {
+            name: 'Application',
+            extend: false,
+            entries: [
+                {
+                    value: 'Firefox',
+                    synonyms:['Firefox', 'fox']
+                },
+                {
+                    value: 'XCode',
+                    synonyms:['XCode', 'xcode']
+                }
+            ]
+        }
+    ]
+});
 
 user_entities_request.on('response', function (response) {
-    var text_request = app.textRequest("Open XCode", {sessionId: sessionId})
+    var text_request = app.textRequest("Open XCode", {sessionId: sessionId});
 
     text_request.on('response', function (response) {
         console.log('response: ' + JSON.stringify(response, null, '  '));

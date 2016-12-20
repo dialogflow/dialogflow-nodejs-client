@@ -8,14 +8,14 @@
 
 // var apiai = require("../module/apiai");
 var apiai = require("apiai");
-//
+
 var app = apiai("YOUR_ACCESS_TOKEN");
 
 var sessionId = "Some unique sessionId for identify unique user";
 
 var user_entities = [{
     name: 'Application',
-    sessionId: sessionId,
+    // sessionId: sessionId,
     extend: false,
     entries: [
         {
@@ -33,7 +33,12 @@ var user_entities = [{
     ]
 }];
 
-var user_entities_request = app.userEntitiesRequest(user_entities);
+var user_entities_body = {
+    sessionId: sessionId,
+    entities: user_entities
+};
+
+var user_entities_request = app.userEntitiesRequest(user_entities_body);
 
 user_entities_request.on('response', function(response) {
     console.log('User entities response: ');

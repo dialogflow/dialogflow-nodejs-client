@@ -189,11 +189,11 @@ Application.prototype.voiceRequest = function(options) {
 
 /**
  * [userEntitiesRequest description]
- * @param  {[type]} user_entities [description]
- * @param  {[type]} options       [description]
- * @return {[type]}               [description]
+ * @param  {[type]} user_entities_body  [description]
+ * @param  {[type]} options             [description]
+ * @return {[type]}                     [description]
  */
-Application.prototype.userEntitiesRequest = function(user_entities, options) {
+Application.prototype.userEntitiesRequest = function(user_entities_body, options) {
     var self = this;
     var opt = options || {};
 
@@ -201,5 +201,5 @@ Application.prototype.userEntitiesRequest = function(user_entities, options) {
         opt.endpoint = self.endpoint;
     }
 
-    return new UserEntitiesRequest(self, user_entities, opt);
+    return new UserEntitiesRequest(self, user_entities_body, opt);
 };
