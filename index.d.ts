@@ -5,7 +5,6 @@
 
 /// <reference types="typescript" />
 /// <reference types="node" />
-// / <reference path="node_modules/@types/node/index.d.ts" />
 
 
 /* =================== USAGE ===================
@@ -13,7 +12,7 @@
     var app = express();
  =============================================== */
 
-import {EventEmitter} from 'events';
+import {EventEmitter} from "events";
 
 declare var apiai: apiai.ApiaiStatic;
 
@@ -27,7 +26,7 @@ declare module "apiai" {
 
 declare namespace apiai {
     interface ApiaiStatic {
-        (clientAccessToken: string, options?: ApplicationOptions): Application
+        (clientAccessToken: string, options?: ApplicationOptions): Application;
     }
 
     /**
@@ -94,7 +93,7 @@ declare namespace apiai {
      */
     interface Event {
         name: string;
-        data?: { [key: string] : any; };
+        data?: { [key: string]: any; };
     }
 
     /**
@@ -174,10 +173,10 @@ declare namespace apiai {
      * Application is factory for requests to api.ai service..
      */
     interface Application {
-        textRequest(query: string | [string], options: TextRequestOptions): TextRequest
-        eventRequest(event: Event, options: EventRequestOptions): EventRequest
-        contextsRequest(contexts: [any], options: ContextsRequestOptions): ContextsRequest
-        userEntitiesRequest(user_entities_body: UserEntitiesBody, options?: UserEntitiesRequestOptions): UserEntitiesRequest
+        textRequest(query: string | [string], options: TextRequestOptions): TextRequest;
+        eventRequest(event: Event, options: EventRequestOptions): EventRequest;
+        contextsRequest(contexts: [any], options: ContextsRequestOptions): ContextsRequest;
+        userEntitiesRequest(user_entities_body: UserEntitiesBody, options?: UserEntitiesRequestOptions): UserEntitiesRequest;
     }
 }
 
