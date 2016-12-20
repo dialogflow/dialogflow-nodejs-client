@@ -13,7 +13,7 @@
     "module/"
   ],
   "scripts": {
-    "build:live": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./examples/typescript_example.ts"
+    "build:live": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./typescript_examples/text_request.ts"
   },
   "repository": {
     "type": "git",

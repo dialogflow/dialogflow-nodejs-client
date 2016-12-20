@@ -5,6 +5,7 @@
 import * as apiai from "../";
 
 const app = apiai("YOUR_ACCESS_TOKEN")
+
 var request = app.textRequest("Hello", {sessionId: 'UNIQUE_SESSION_ID'})
 
 request.on('response', function (response) {
@@ -16,3 +17,5 @@ request.on('error', function(error) {
 });
 
 request.end();
+
+

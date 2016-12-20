@@ -8,7 +8,7 @@
 
 // var apiai = require("../module/apiai");
 var apiai = require("apiai");
-
+//
 var app = apiai("YOUR_ACCESS_TOKEN");
 
 var sessionId = "Some unique sessionId for identify unique user";
@@ -20,15 +20,15 @@ var user_entities = [{
     entries: [
         {
             value: 'Firefox',
-            synonims: ['Firefox']
+            synonyms: ['Firefox']
         },
         {
             value: 'XCode',
-            synonims: ['XCode']
+            synonyms: ['XCode']
         },
         {
             value: 'Sublime Text',
-            synonims: ['Sublime Text']
+            synonyms: ['Sublime Text']
         }
     ]
 }];
@@ -39,7 +39,7 @@ user_entities_request.on('response', function(response) {
     console.log('User entities response: ');
     console.log(response);
 
-    var request = app.textRequest('Open application Firefox');
+    var request = app.textRequest('Open application Firefox', {sessionId: "123"});
 
     request.on('response', function(response) {
         console.log('Query response: ');
