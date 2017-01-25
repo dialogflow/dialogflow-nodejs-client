@@ -11,7 +11,7 @@ var apiai = require("../module/apiai");
 // var apiai = require("apiai");
 
 var options = {
-    hostname: 'eap.api.ai',
+    // hostname: 'eap.api.ai',
 };
 
 var app = apiai("<YOUR_ACCESS_TOKEN>", options);
