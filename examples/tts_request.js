@@ -20,7 +20,7 @@ file.on('error', function(err) {
 });
 
 var tts_request_options = {
-    lang: 'en-US',
+    language: 'en-US',
     writeStream: file
 };
 

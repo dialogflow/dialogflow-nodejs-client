@@ -8,11 +8,12 @@
 
 
 /* =================== USAGE ===================
-    import * as express from "express";
-    var app = express();
+    import * as apiai from "apiai";
+    const app = apiai("YOUR_ACCESS_TOKEN");
  =============================================== */
 
-import {EventEmitter} from "events";
+import * as events from "events";
+import * as stream from "stream";
 
 declare var apiai: apiai.ApiaiStatic;
 
@@ -25,6 +26,8 @@ declare module "apiai" {
 }
 
 declare namespace apiai {
+
+
     interface ApiaiStatic {
         (clientAccessToken: string, options?: ApplicationOptions): Application;
     }
@@ -40,9 +43,17 @@ declare namespace apiai {
      * Base class or interface for all inherited requests.
      * Not uses directly, for inherits only.
      */
-    interface Request extends EventEmitter {
+    interface Request extends events.EventEmitter {
         write(buffer: Buffer | string): void;
         end(): void;
+    }
+
+    /**
+     * Base class or interface for all inherited requests.
+     * Not uses directly, for inherits only.
+     */
+    interface JSONApiRequest extends Request {
+
     }
 
     /**
@@ -63,7 +74,7 @@ declare namespace apiai {
     /**
      * Base query request.
      */
-    interface QueryRequest extends Request {
+    interface QueryRequest extends JSONApiRequest {
 
     }
 
@@ -113,7 +124,7 @@ declare namespace apiai {
     /**
      * Contexts Request.
      */
-    interface ContextsRequest extends Request {
+    interface ContextsRequest extends JSONApiRequest {
         contexts: [any];
     }
 
@@ -152,8 +163,24 @@ declare namespace apiai {
     /**
      * UserEntities Request.
      */
-    interface UserEntitiesRequest extends Request {
+    interface UserEntitiesRequest extends JSONApiRequest {
         user_entities_body: UserEntitiesBody;
+    }
+
+    /**
+     * TTS Request options.
+     */
+
+    interface TTSRequestOptions extends RequestOptions {
+        language?: string;
+        writeStream: stream.Writable;
+    }
+
+    /**
+     * TTS Request.
+     */
+    interface TTSRequest extends Request {
+
     }
 
     /**
@@ -177,6 +204,7 @@ declare namespace apiai {
         eventRequest(event: Event, options: EventRequestOptions): EventRequest;
         contextsRequest(contexts: [any], options: ContextsRequestOptions): ContextsRequest;
         userEntitiesRequest(user_entities_body: UserEntitiesBody, options?: UserEntitiesRequestOptions): UserEntitiesRequest;
+        ttsRequest(text: string, options: TTSRequestOptions): TTSRequest;
     }
 }
 

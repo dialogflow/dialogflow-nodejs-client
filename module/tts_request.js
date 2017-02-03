@@ -18,12 +18,7 @@ function TTSRequest(application, text, options) {
 
     self.text = text;
 
-    if ('lang' in options) {
-        self.lang = options.lang;
-    }
-    else{
-        self.lang = 'en-US';
-    }
+    self.language = options.language || options.lang || 'en-US';
 
     if('writeStream' in options){
         self.writeStream = options.writeStream;
@@ -38,7 +33,7 @@ TTSRequest.prototype._headers = function() {
     var self = this;
     var headers = TTSRequest.super_.prototype._headers.apply(this, arguments);
 
-    headers['Accept-Language'] = self.lang;
+    headers['Accept-Language'] = self.language;
 
     return headers;
 };
