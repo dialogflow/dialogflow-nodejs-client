@@ -6,12 +6,12 @@
 
 'use strict';
 
-var Request = require('./request').Request;
+var JSONApiRequest = require('./json_api_request').JSONApiRequest;
 var util = require('util');
 
 exports.QueryRequest = module.exports.QueryRequest = QueryRequest;
 
-util.inherits(QueryRequest, Request);
+util.inherits(QueryRequest, JSONApiRequest);
 
 function QueryRequest (application, options) {
     var self = this;

@@ -17,7 +17,11 @@ var options = {
 
 var app = apiai("YOUR_ACCESS_TOKEN", options);
 
-var request = app.textRequest('Hello');
+var options = {
+    sessionId: '<UNIQE SESSION ID>'
+};
+
+var request = app.textRequest('Hello', options);
 
 request.on('response', function(response) {
     console.log(response);

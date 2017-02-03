@@ -11,8 +11,6 @@ var util = require('util');
 var https = require('https');
 var http = require('http');
 
-var ServerError = require('./exceptions').ServerError;
-
 exports.Request = module.exports.Request = Request;
 
 util.inherits(Request, EventEmitter);
@@ -33,47 +31,8 @@ function Request (application, options) {
 
     requestOptions.agent = application._agent;
 
-    
-    
     var request = _http.request(requestOptions, function(response) {
-        var body = '';
-
-        if(requestOptions.writeStream){
-            response.pipe(requestOptions.writeStream);
-        }
-
-        response.on('data', function(chunk) {
-            body += chunk;
-        });
-
-        response.on('end', function() {
-            if (response.statusCode >= 200 && response.statusCode <= 299) {
-
-                // raw response
-                if(requestOptions.responseFormat=='raw'){ 
-                    self.emit('response', body);  
-                }               
-                // json response
-                else try {
-                        var json_body = JSON.parse(body);
-                        self.emit('response', json_body);                       
-                    } catch (error) {
-                        // JSON.parse can throw only one exception, SyntaxError
-                        // All another exceptions throwing from user function,
-                        // because it just rethrowing for better error handling.
-                        
-                        if (error instanceof SyntaxError) {
-                            self.emit('error', error);
-                        } else {
-                            throw error;
-                        }
-                    }                               
-                
-            } else {
-                var error = new ServerError(response.statusCode, body, 'Wrong response status code.');
-                self.emit('error', error);
-            }
-        });
+        self._handleResponse(response);
     });
 
     request.on('error', function(error) {
@@ -82,6 +41,10 @@ function Request (application, options) {
 
     self.request = request;
 }
+
+Request.prototype._handleResponse = function(response) {
+    throw new Error("Can't call abstract method!");
+};
 
 Request.prototype._headers = function() {
     var self = this;
@@ -99,7 +62,6 @@ Request.prototype._requestOptions = function() {
     return {
         hostname: self.hostname,
         headers: self._headers(),
-        responseFormat:'json',
     };
 };
 

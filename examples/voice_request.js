@@ -15,7 +15,11 @@ var app = apiai("YOUR_ACCESS_TOKEN", {
     language: 'ru'
 });
 
-var request = app.voiceRequest();
+var options = {
+    sessionId: '<UNIQE SESSION ID>'
+};
+
+var request = app.voiceRequest(options);
 
 request.on('response', function(response) {
     console.log(response);

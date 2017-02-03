@@ -7,8 +7,8 @@
 'use strict';
 
 var util = require('util');
-var apiai = require("../module/apiai");
-// var apiai = require("apiai");
+// var apiai = require("../module/apiai");
+var apiai = require("apiai");
 
 var options = {
     // hostname: 'eap.api.ai',

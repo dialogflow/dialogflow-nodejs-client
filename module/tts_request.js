@@ -1,3 +1,8 @@
+/*!
+ * apiai
+ * Copyright(c) 2015 http://api.ai/
+ * Apache 2.0 Licensed
+ */
 
 'use strict';
 
@@ -15,13 +20,15 @@ function TTSRequest(application, text, options) {
 
     if ('lang' in options) {
         self.lang = options.lang;
-    } 
+    }
     else{
         self.lang = 'en-US';
-    } 
+    }
 
     if('writeStream' in options){
         self.writeStream = options.writeStream;
+    } else {
+        throw new Error('\'writeStream\' cannot be empty.');
     }
 
     TTSRequest.super_.apply(this, [application, options]);
@@ -40,17 +47,14 @@ TTSRequest.prototype._requestOptions = function() {
     var self = this;
     var request_options = TTSRequest.super_.prototype._requestOptions.apply(this, arguments);
 
-    request_options.path = this.endpoint + 'tts?text=' + encodeURI(self.text);
-    console.log(request_options.path);
+    request_options.path = self.endpoint + 'tts?text=' + encodeURI(self.text);
     request_options.method = 'GET';
-    request_options.responseFormat = 'raw';
-    request_options.writeStream = self.writeStream;
 
     return request_options;
 };
 
-TTSRequest.prototype.end = function() {
+TTSRequest.prototype._handleResponse = function(response) {
     var self = this;
-    
-    TTSRequest.super_.prototype.end.apply(this, arguments);
+    response.pipe(self.writeStream);
 };
+

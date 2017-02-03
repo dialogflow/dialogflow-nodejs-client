@@ -33,7 +33,12 @@ var entities = [
                     }
                 ];
 
-var request = app.textRequest('Hello ori', {'entities': entities});
+var options = {
+    entities: entities,
+    sessionId: '<UNIQE SESSION ID>'
+};
+
+var request = app.textRequest('Hello ori', options);
 
 request.on('response', function(response) {
     console.log(response);

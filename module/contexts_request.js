@@ -6,12 +6,12 @@
 
 'use strict';
 
-var Request = require('./request').Request;
+var JSONApiRequest = require('./json_api_request').JSONApiRequest;
 var util = require('util');
 
 exports.ContextsRequest = module.exports.ContextsRequest = ContextsRequest;
 
-util.inherits(ContextsRequest, Request);
+util.inherits(ContextsRequest, JSONApiRequest);
 
 function ContextsRequest(application, contexts, options) {
     var self = this;

@@ -16,13 +16,10 @@ var code = 405;
 
 var server = http.createServer(function(request, response) {
     if (request.method == 'POST' && request.url == '/upload') {
-        // var outStream = fs.createWriteStream('qwe.wav');
         var voiceRequest = app.voiceRequest();
 
         voiceRequest.on('response', function(_response) {
             response.end(JSON.stringify(_response));
-            // var json = JSON.stringify({'resolvedQuery': _response['result']['resolvedQuery']})
-            // response.end(json);
         });
 
         voiceRequest.on('error', function(error) {

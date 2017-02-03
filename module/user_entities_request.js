@@ -6,12 +6,12 @@
 
 'use strict';
 
-var Request = require('./request').Request;
+var JSONApiRequest = require('./json_api_request').JSONApiRequest;
 var util = require('util');
 
 exports.UserEntitiesRequest = module.exports.UserEntitiesRequest = UserEntitiesRequest;
 
-util.inherits(UserEntitiesRequest, Request);
+util.inherits(UserEntitiesRequest, JSONApiRequest);
 
 function UserEntitiesRequest(application, user_entities_body, options) {
     var self = this;

@@ -6,12 +6,16 @@
 
 'use strict';
 
-var apiai = require("../module/apiai");
-// var apiai = require("apiai");
+// var apiai = require("../module/apiai");
+var apiai = require("apiai");
 
 var app = apiai("YOUR_ACCESS_TOKEN");
 
-var request = app.textRequest('Hello');
+var options = {
+    sessionId: '<UNIQE SESSION ID>'
+};
+
+var request = app.textRequest('Hello', options);
 
 request.on('response', function(response) {
     console.log(response);
