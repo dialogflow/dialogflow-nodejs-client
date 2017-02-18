@@ -11,11 +11,10 @@ var apiai = require("apiai");
 
 var app = apiai("YOUR_ACCESS_TOKEN");
 
-var sessionId = "Some unique sessionId for identify unique user";
+var sessionId = "Some unique sessionId";
 
 var user_entities = [{
     name: 'Application',
-    // sessionId: sessionId,
     extend: false,
     entries: [
         {
@@ -42,13 +41,13 @@ var user_entities_request = app.userEntitiesRequest(user_entities_body);
 
 user_entities_request.on('response', function(response) {
     console.log('User entities response: ');
-    console.log(response);
+    console.log(JSON.stringify(response, null, 4));
 
-    var request = app.textRequest('Open application Firefox', {sessionId: "123"});
+    var request = app.textRequest('open XCode', {sessionId: sessionId});
 
     request.on('response', function(response) {
         console.log('Query response: ');
-        console.log(response);
+        console.log(JSON.stringify(response, null, 4));
     });
 
     request.on('error', function(error) {
