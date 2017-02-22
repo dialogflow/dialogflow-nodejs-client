@@ -15,6 +15,7 @@ var https = require('https');
 var http = require('http');
 
 var ContextsRequest = require('./contexts_request').ContextsRequest;
+var DeleteContextsRequest = require('./delete_contexts_request').DeleteContextsRequest;
 var TextRequest = require('./text_request').TextRequest;
 var EventRequest = require('./event_request').EventRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
@@ -131,11 +132,19 @@ Application.prototype.contextsRequest = function(contexts, options) {
 
 /**
  * Delete/Reset all contexts for session by ID.
- * @param  {string} sessionId The session ID to delete contexts
+ * @param  {object} options Options for DeleteContextsRequest. Should contain sessionId.
  * @return {ContextsRequest}           Returns a ContextsRequest object.
  */
-Application.prototype.deleteContextsForSession = function(sessionId) {
-    return this.contextsRequest(null, {method:'DELETE', sessionId:sessionId});
+Application.prototype.deleteContextsRequest = function(options) {
+    var self = this;
+
+    var opt = options || {};
+
+    if (!('endpoint' in opt)) {
+        opt.endpoint = self.endpoint;
+    }
+
+    return new DeleteContextsRequest(self, opt);
 }
 
 /**

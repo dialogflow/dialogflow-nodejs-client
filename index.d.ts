@@ -129,6 +129,20 @@ declare namespace apiai {
     }
 
     /**
+     * Delete Contexts Request options.
+     */
+    interface DeleteContextsRequestOptions extends RequestOptions {
+        sessionId: string;
+    }
+
+    /**
+     * Delete Contexts Request.
+     */
+    interface DeleteContextsRequest extends JSONApiRequest {
+
+    }
+
+    /**
      * UserEntityEntry model for user entities request.
      */
     interface UserEntityEntry {
@@ -203,6 +217,7 @@ declare namespace apiai {
         textRequest(query: string | [string], options: TextRequestOptions): TextRequest;
         eventRequest(event: Event, options: EventRequestOptions): EventRequest;
         contextsRequest(contexts: [any], options: ContextsRequestOptions): ContextsRequest;
+        deleteContextsRequest(options: DeleteContextsRequestOptions): DeleteContextsRequest;
         userEntitiesRequest(user_entities_body: UserEntitiesBody, options?: UserEntitiesRequestOptions): UserEntitiesRequest;
         ttsRequest(text: string, options: TTSRequestOptions): TTSRequest;
     }

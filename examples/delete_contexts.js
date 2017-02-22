@@ -10,7 +10,11 @@ var apiai = require("apiai");
 
 var app = apiai("YOUR_ACCESS_TOKEN");
 
-var request = app.deleteContextsForSession('<UNIQUE SESSION ID>');
+var options = {
+    sessionId: '<UNIQE SESSION ID>'
+};
+
+var request = app.deleteContextsRequest(options);
 
 request.on('response', function(response) {
     console.log(response);
