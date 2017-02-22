@@ -37,9 +37,3 @@ DeleteContextsRequest.prototype._requestOptions = function() {
 
     return request_options;
 };
-
-DeleteContextsRequest.prototype.end = function() {
-    var self = this;
-
-    DeleteContextsRequest.super_.prototype.end.apply(this, arguments);
-};
