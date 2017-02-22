@@ -130,6 +130,14 @@ Application.prototype.contextsRequest = function(contexts, options) {
 };
 
 /**
+ * Delete all contexts
+ * @return {ContextsRequest}          Returns a ContextsRequest object.
+ */
+Application.prototype.deleteContexts = function() {
+    return this.contextsRequest(null, {method:'DELETE'});
+}
+
+/**
  * [textRequest description]
  * @param  {[type]} query   [description]
  * @param  {[type]} options [description]

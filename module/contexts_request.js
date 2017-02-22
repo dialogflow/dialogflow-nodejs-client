@@ -18,6 +18,7 @@ function ContextsRequest(application, contexts, options) {
 
     self.contexts = contexts;
     self.sessionId = options.sessionId;
+    self.method = options.method || 'POST';
 
     ContextsRequest.super_.apply(this, [application, options]);
 }
@@ -34,7 +35,7 @@ ContextsRequest.prototype._requestOptions = function() {
     var request_options = ContextsRequest.super_.prototype._requestOptions.apply(this, arguments);
 
     request_options.path = this.endpoint + 'contexts?sessionId=' + this.sessionId;
-    request_options.method = 'POST';
+    request_options.method = this.method;
 
     return request_options;
 };
@@ -42,7 +43,9 @@ ContextsRequest.prototype._requestOptions = function() {
 ContextsRequest.prototype.end = function() {
     var self = this;
 
-    self.write(JSON.stringify(self.contexts));
+    if (self.method === 'POST') {
+        self.write(JSON.stringify(self.contexts));
+    }
 
     ContextsRequest.super_.prototype.end.apply(this, arguments);
 };
