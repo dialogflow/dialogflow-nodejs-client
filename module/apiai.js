@@ -133,8 +133,8 @@ Application.prototype.contextsRequest = function(contexts, options) {
  * Delete all contexts
  * @return {ContextsRequest}          Returns a ContextsRequest object.
  */
-Application.prototype.deleteContexts = function() {
-    return this.contextsRequest(null, {method:'DELETE'});
+Application.prototype.deleteContextsForSession = function(session) {
+    return this.contextsRequest(null, {method:'DELETE', sessionId:session});
 }
 
 /**
