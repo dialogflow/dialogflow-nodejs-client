@@ -41,7 +41,8 @@ var options = {
 var request = app.textRequest('Hello ori', options);
 
 request.on('response', function(response) {
-    console.log(response);
+
+    console.log(JSON.stringify(response, null, 4));
 });
 
 request.on('error', function(error) {
