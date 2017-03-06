@@ -13,7 +13,7 @@
     "module/"
   ],
   "scripts": {
-    "build:live": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./typescript_examples/tts_request.ts"
+    "build:live": "NODE_ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./typescript_examples/text_request.ts"
   },
   "repository": {
     "type": "git",
@@ -33,11 +33,14 @@
   },
   "homepage": "https://github.com/api-ai/api-ai-node-js#readme",
   "devDependencies": {
-    "@types/node": "^6.0.52",
+    "@types/node": "^7.0.5",
     "nodemon": "^1.11.0",
-    "ts-node": "^1.7.2",
+    "ts-node": "^2.1.0",
     "typescript": "^2.1.4",
     "typing": "^0.1.9",
     "typings": "^2.0.0"
+  },
+  "dependencies": {
+    "typescript": "^2.1.6"
   }
 }

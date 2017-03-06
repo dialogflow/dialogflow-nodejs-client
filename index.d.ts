@@ -15,19 +15,18 @@
 import * as events from "events";
 import * as stream from "stream";
 
-declare var apiai: apiai.ApiaiStatic;
+declare const apiai: apiai.ApiaiStatic;
 
 export as namespace apiai;
-
-export = apiai;
 
 declare module "apiai" {
     export = apiai;
 }
 
+// export default apiai;
+export = apiai;
+
 declare namespace apiai {
-
-
     interface ApiaiStatic {
         (clientAccessToken: string, options?: ApplicationOptions): Application;
     }
