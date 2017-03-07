@@ -19,11 +19,6 @@ declare const apiai: apiai.ApiaiStatic;
 
 export as namespace apiai;
 
-declare module "apiai" {
-    export = apiai;
-}
-
-// export default apiai;
 export = apiai;
 
 declare namespace apiai {
