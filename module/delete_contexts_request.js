@@ -13,9 +13,12 @@ exports.DeleteContextsRequest = module.exports.DeleteContextsRequest = DeleteCon
 
 util.inherits(DeleteContextsRequest, JSONApiRequest);
 
-function DeleteContextsRequest(application, options) {
+function DeleteContextsRequest(application, options, context) {
     var self = this;
 
+    if (context) {
+      self.context = context;
+    }
     self.sessionId = options.sessionId;
 
     DeleteContextsRequest.super_.apply(this, [application, options]);
@@ -31,8 +34,9 @@ DeleteContextsRequest.prototype._headers = function() {
 
 DeleteContextsRequest.prototype._requestOptions = function() {
     var request_options = DeleteContextsRequest.super_.prototype._requestOptions.apply(this, arguments);
+    var contextPath = this.context ? '/' + context : '';
 
-    request_options.path = this.endpoint + 'contexts?sessionId=' + this.sessionId;
+    request_options.path = this.endpoint + 'contexts' + contextPath + '?sessionId=' + this.sessionId;
     request_options.method = 'DELETE';
 
     return request_options;

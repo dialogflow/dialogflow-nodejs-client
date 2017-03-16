@@ -133,9 +133,10 @@ Application.prototype.contextsRequest = function(contexts, options) {
 /**
  * Delete/Reset all contexts for session by ID.
  * @param  {object} options Options for DeleteContextsRequest. Should contain sessionId.
+ * @param  {string} [context] Name of the context to delete or empty/null to delete all contexts.
  * @return {ContextsRequest}           Returns a ContextsRequest object.
  */
-Application.prototype.deleteContextsRequest = function(options) {
+Application.prototype.deleteContextsRequest = function(options, context) {
     var self = this;
 
     var opt = options || {};
@@ -144,7 +145,7 @@ Application.prototype.deleteContextsRequest = function(options) {
         opt.endpoint = self.endpoint;
     }
 
-    return new DeleteContextsRequest(self, opt);
+    return new DeleteContextsRequest(self, opt, context);
 }
 
 /**
