@@ -1,0 +1,29 @@
+{
+  "name": "API.AI Spark integration",
+  "description": "Api.ai Spark integration allows you to create Spark bots with natural language understanding based on Api.ai technology.",
+  "repository": "https://github.com/api-ai/apiai-spark-bot",
+  "logo": "http://xvir.github.io/img/apiai.png",
+  "keywords": ["api.ai", "spark", "natural language"],
+  "env": {
+    "APP_NAME": {
+      "description": "Copy App Name here",
+      "value": ""
+    },
+    "APIAI_ACCESS_TOKEN": {
+      "description": "Client access token for Api.ai",
+      "value": ""
+    },
+    "SPARK_ACCESS_TOKEN": {
+      "description": "Spark Access Token",
+      "value": ""
+    },
+    "APIAI_LANG": {
+      "description": "Agent language",
+      "value": "en",
+      "required": false
+    }
+  },
+  "engines": {
+    "node": "6.9.4"
+  }
+}

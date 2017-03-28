@@ -1,0 +1,37 @@
+{
+  "name": "API.AI Twilio Ip",
+  "description": "Api.ai Twilio Ip Messaging bot",
+  "repository": "https://github.com/api-ai/twilio-ip-bot",
+  "logo": "http://xvir.github.io/img/apiai.png",
+  "keywords": ["api.ai", "twilio", "natural language"],
+  "env": {
+    "APIAI_ACCESS_TOKEN": {
+      "description": "Client access token for Api.ai",
+      "value": ""
+    },
+    "APIAI_LANG": {
+      "description": "Agent language",
+      "value": "en",
+      "required": false
+    },
+    "ACCOUNT_SID": {
+      "description": "Account Sid",
+      "value": ""
+    },
+    "SERVICE_SID": {
+      "description": "Service Sid",
+      "value": ""
+    },
+    "SIGNING_KEY_SID": {
+      "description": "Signing key SID",
+      "value": ""
+    },
+    "SIGNING_KEY_SECRET": {
+      "description": "Signing key Secret",
+      "value": ""
+    }
+  },
+  "engines": {
+    "node": "5.10.1"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "API.AI Tropo integration",
+  "description": "Api.ai Tropo integration allows you to create Tropo bots with natural language understanding based on Api.ai technology.",
+  "repository": "https://github.com/api-ai/apiai-tropo-bot",
+  "logo": "http://xvir.github.io/img/apiai.png",
+  "keywords": ["api.ai", "tropo", "natural language"],
+  "env": {
+    "APIAI_ACCESS_TOKEN": {
+      "description": "Client access token for Api.ai",
+      "value": ""
+    },
+    "APIAI_LANG": {
+      "description": "Agent language",
+      "value": "en",
+      "required": false
+    }
+  },
+  "engines": {
+    "node": "5.10.1"
+  }
+}

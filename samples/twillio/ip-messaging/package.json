@@ -1,0 +1,23 @@
+{
+  "name": "apiai-twilio-ip-bot",
+  "version": "1.0.0",
+  "description": "API.AI Twilio Ip Bot",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Danil Skachkov <danil.skachkov@speaktoit.com> (https://api.ai)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "apiai": "2.0.5",
+    "body-parser": "^1.15.0",
+    "console-stamp": "^0.2.1",
+    "express": "^4.13.4",
+    "node-uuid": "^1.4.7",
+    "request": "^2.71.0",
+    "twilio": "^2.9.1",
+    "twilio-common": "^0.1.5",
+    "twilio-ip-messaging": "^0.10.6"
+  }
+}

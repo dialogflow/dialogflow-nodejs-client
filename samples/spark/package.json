@@ -1,0 +1,22 @@
+{
+  "name": "apiai-spark-bot",
+  "version": "1.0.0",
+  "description": "API.AI Spark Bot",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Danil Skachkov <danil@api.ai> (https://api.ai)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "apiai": "^3.0.3",
+    "assert": "^1.4.0",
+    "async": "^2.1.4",
+    "body-parser": "^1.15.0",
+    "console-stamp": "^0.2.1",
+    "express": "^4.13.4",
+    "request": "^2.71.0",
+    "uuid": "^3.0.1"
+  }
+}
