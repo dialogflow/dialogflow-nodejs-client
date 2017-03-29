@@ -38,4 +38,4 @@ request.end();
 ```shell
 node main.js
 ```
-* Your can find more examples in [`examples`](examples) directory.
+* Your can find more examples in [`samples`](samples) directory.
