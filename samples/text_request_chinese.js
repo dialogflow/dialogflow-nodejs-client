@@ -9,11 +9,12 @@
 // var apiai = require("../module/apiai");
 var apiai = require("apiai");
 
-var app = apiai("YOUR_ACCESS_TOKEN");
+var app = apiai("YOUR_ACCESS_TOKEN", {
+    language: 'zh-CN'
+});
 
 var options = {
-    sessionId: '<UNIQE SESSION ID>',
-    language: 'zh-CN'
+    sessionId: '<UNIQE SESSION ID>'
 };
 
 var request = app.textRequest('什么叫发票', options);
