@@ -1,6 +1,6 @@
 {
   "name": "apiai",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Node.js SDK for api.ai",
   "main": "index.js",
   "types": "index.d.ts",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/api-ai/api-ai-node-js.git"
+    "url": "git+https://github.com/api-ai/apiai-nodejs-client.git"
   },
   "keywords": [
     "apiai",

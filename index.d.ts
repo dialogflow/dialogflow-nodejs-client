@@ -1,5 +1,5 @@
 // Type definitions for apiai 3.0.4
-// Project: https://github.com/api-ai/api-ai-node-js/
+// Project: https://github.com/api-ai/apiai-nodejs-client.git
 // Definitions by: Dmitry Kuragin <https://github.com/sstepashka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
