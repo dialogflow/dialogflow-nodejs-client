@@ -205,7 +205,7 @@ declare namespace apiai {
     }
 
     /**
-     * Application is factory for requests to api.ai service..
+     * Application is factory for requests to api.ai service.
      */
     interface Application {
         textRequest(query: string | [string], options: TextRequestOptions): TextRequest;
