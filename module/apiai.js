@@ -21,7 +21,8 @@ var TextRequest = require('./text_request').TextRequest;
 var EventRequest = require('./event_request').EventRequest;
 var VoiceRequest = require('./voice_request').VoiceRequest;
 var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest;
-var TTSRequest = require('./tts_request').TTSRequest;
+// Text to speech (TTS) has been deprecated
+// var TTSRequest = require('./tts_request').TTSRequest;
 
 /**
  * Module variables.
@@ -243,13 +244,14 @@ Application.prototype.userEntitiesRequest = function(user_entities_body, options
     return new UserEntitiesRequest(self, user_entities_body, opt);
 };
 
-Application.prototype.ttsRequest = function(text, options) {
-    var self = this;
-    var opt = options || {};
+// Text to speech (TTS) has been deprecated
+// Application.prototype.ttsRequest = function(text, options) {
+//     var self = this;
+//     var opt = options || {};
 
-    if (!('endpoint' in opt)) {
-        opt.endpoint = self.endpoint;
-    }
+//     if (!('endpoint' in opt)) {
+//         opt.endpoint = self.endpoint;
+//     }
 
-    return new TTSRequest(self, text, opt);
-};
+//     return new TTSRequest(self, text, opt);
+// };
