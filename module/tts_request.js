@@ -4,52 +4,54 @@
  * Apache 2.0 Licensed
  */
 
-'use strict';
+// Text to speech (TTS) has been deprecated
 
-var Request = require('./request').Request;
-var util = require('util');
+// 'use strict';
 
-exports.TTSRequest = module.exports.TTSRequest = TTSRequest;
+// var Request = require('./request').Request;
+// var util = require('util');
 
-util.inherits(TTSRequest, Request);
+// exports.TTSRequest = module.exports.TTSRequest = TTSRequest;
 
-function TTSRequest(application, text, options) {
-    var self = this;
+// util.inherits(TTSRequest, Request);
 
-    self.text = text;
+// function TTSRequest(application, text, options) {
+//     var self = this;
 
-    self.language = options.language || options.lang || 'en-US';
+//     self.text = text;
 
-    if('writeStream' in options){
-        self.writeStream = options.writeStream;
-    } else {
-        throw new Error('\'writeStream\' cannot be empty.');
-    }
+//     self.language = options.language || options.lang || 'en-US';
 
-    TTSRequest.super_.apply(this, [application, options]);
-}
+//     if('writeStream' in options){
+//         self.writeStream = options.writeStream;
+//     } else {
+//         throw new Error('\'writeStream\' cannot be empty.');
+//     }
 
-TTSRequest.prototype._headers = function() {
-    var self = this;
-    var headers = TTSRequest.super_.prototype._headers.apply(this, arguments);
+//     TTSRequest.super_.apply(this, [application, options]);
+// }
 
-    headers['Accept-Language'] = self.language;
+// TTSRequest.prototype._headers = function() {
+//     var self = this;
+//     var headers = TTSRequest.super_.prototype._headers.apply(this, arguments);
 
-    return headers;
-};
+//     headers['Accept-Language'] = self.language;
 
-TTSRequest.prototype._requestOptions = function() {
-    var self = this;
-    var request_options = TTSRequest.super_.prototype._requestOptions.apply(this, arguments);
+//     return headers;
+// };
 
-    request_options.path = self.endpoint + 'tts?text=' + encodeURI(self.text);
-    request_options.method = 'GET';
+// TTSRequest.prototype._requestOptions = function() {
+//     var self = this;
+//     var request_options = TTSRequest.super_.prototype._requestOptions.apply(this, arguments);
 
-    return request_options;
-};
+//     request_options.path = self.endpoint + 'tts?text=' + encodeURI(self.text);
+//     request_options.method = 'GET';
 
-TTSRequest.prototype._handleResponse = function(response) {
-    var self = this;
-    response.pipe(self.writeStream);
-};
+//     return request_options;
+// };
+
+// TTSRequest.prototype._handleResponse = function(response) {
+//     var self = this;
+//     response.pipe(self.writeStream);
+// };
 
