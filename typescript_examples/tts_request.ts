@@ -1,23 +1,25 @@
 /// <reference path="./../index.d.ts" />
 /// <reference types="node" />
 
-"use strict";
+// Text to speech (TTS) has been deprecated
 
-import * as apiai from "../";
-import * as fs from "fs";
+// "use strict";
 
-const app = apiai("YOUR_ACCESS_TOKEN");
+// import * as apiai from "../";
+// import * as fs from "fs";
 
-let file = fs.createWriteStream("hello-world-tts.wav");
+// const app = apiai("YOUR_ACCESS_TOKEN");
 
-file.on("finish", function() {
-    console.log("wav file ready");
-});
+// let file = fs.createWriteStream("hello-world-tts.wav");
 
-file.on("error", function(err) {
-    console.log(err);
-});
+// file.on("finish", function() {
+//     console.log("wav file ready");
+// });
 
-let request = app.ttsRequest("Hello world", {writeStream: file});
+// file.on("error", function(err) {
+//     console.log(err);
+// });
 
-request.end();
+// let request = app.ttsRequest("Hello world", {writeStream: file});
+
+// request.end();
