@@ -176,20 +176,20 @@ declare namespace apiai {
     }
 
     /**
-     * TTS Request options.
+     * TTS Request options (deprecated)
      */
 
-    interface TTSRequestOptions extends RequestOptions {
-        language?: string;
-        writeStream: stream.Writable;
-    }
+     //interface TTSRequestOptions extends RequestOptions {
+     //    language?: string;
+     //    writeStream: stream.Writable;
+     //}
 
     /**
-     * TTS Request.
+     * TTS Request (deprecated)
      */
-    interface TTSRequest extends Request {
+    //interface TTSRequest extends Request {
 
-    }
+    //}
 
     /**
      * Application options. This options uses for
@@ -213,7 +213,8 @@ declare namespace apiai {
         contextsRequest(contexts: [any], options: ContextsRequestOptions): ContextsRequest;
         deleteContextsRequest(options: DeleteContextsRequestOptions): DeleteContextsRequest;
         userEntitiesRequest(user_entities_body: UserEntitiesBody, options?: UserEntitiesRequestOptions): UserEntitiesRequest;
-        ttsRequest(text: string, options: TTSRequestOptions): TTSRequest;
+        // Text to speech (TTS) has been deprecated
+        //ttsRequest(text: string, options: TTSRequestOptions): TTSRequest;
     }
 }
 
