@@ -6,15 +6,15 @@
   "keywords": ["api.ai", "telegram", "natural language"],
   "env": {
     "APP_NAME": {
-      "description": "Copy App Name here",
+      "description": "Mobile phone bot",
       "value": ""
     },
     "TELEGRAM_TOKEN": {
-      "description": "Telegram bot token",
+      "description": "342699638:AAF6cssVIDJoZz7u2l-uhF-FXTPww97kjql",
       "value": ""
     },
     "APIAI_ACCESS_TOKEN": {
-      "description": "Client access token for Api.ai",
+      "description": "55f292866a344f679988207a53c75bfb",
       "value": ""
     },
     "APIAI_LANG": {
