@@ -34,7 +34,7 @@ DeleteContextsRequest.prototype._headers = function() {
 
 DeleteContextsRequest.prototype._requestOptions = function() {
     var request_options = DeleteContextsRequest.super_.prototype._requestOptions.apply(this, arguments);
-    var contextPath = this.context ? '/' + context : '';
+    var contextPath = this.context ? '/' + this.context : '';
 
     request_options.path = this.endpoint + 'contexts' + contextPath + '?sessionId=' + this.sessionId;
     request_options.method = 'DELETE';
