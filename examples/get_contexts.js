@@ -11,7 +11,7 @@ var apiai = require("apiai");
 var app = apiai("YOUR_ACCESS_TOKEN");
 
 var options = {
-    sessionId: '<UNIQE SESSION ID>'
+    sessionId: '<UNIQUE SESSION ID>'
 };
 
 var request = app.getContextsRequest(options);
