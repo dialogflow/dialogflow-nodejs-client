@@ -24,11 +24,22 @@ JSONApiRequest.prototype._handleResponse = function(response) {
 
     var body = '';
 
+    var buffers = [];
+    var bufferLength = 0;
+
     response.on('data', function(chunk) {
-        body += chunk;
+      bufferLength += chunk.length;
+      buffers.push(chunk);
     });
 
     response.on('end', function() {
+        if (bufferLength) {
+            body = Buffer.concat(buffers, bufferLength).toString('utf8');
+        }
+
+        buffers = [];
+        bufferLength = 0;
+
         if (response.statusCode >= 200 && response.statusCode <= 299) {
             try {
                     var json_body = JSON.parse(body);
