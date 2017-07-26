@@ -18,7 +18,9 @@ npm install apiai
 ```javascript
 var apiai = require('apiai');
 
-var app = apiai("<your client access token>");
+var app = apiai("<your client access token>", {
+    proxy: 'http://IP:PORT',
+});
 
 var request = app.textRequest('<Your text query>', {
     sessionId: '<unique session id>'

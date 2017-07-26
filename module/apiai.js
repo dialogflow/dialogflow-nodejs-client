@@ -13,6 +13,7 @@
 
 var https = require('https');
 var http = require('http');
+var ProxyAgent = require('proxy-agent');
 
 var ContextsRequest = require('./contexts_request').ContextsRequest;
 var GetContextsRequest = require('./get_contexts_request').GetContextsRequest;
@@ -34,6 +35,7 @@ var language = 'en';
 var hostname = 'api.api.ai';
 var endpoint = '/v1/';
 var defaultSource = 'node';
+var proxy = null;
 
 /**
  * Module exports.
@@ -108,6 +110,7 @@ function Application (clientAccessToken, options) {
     self.version = options.version || version;
 
     self.endpoint = options.endpoint || endpoint;
+    self.proxy = options.proxy || proxy;
     self.requestSource = options.requestSource || defaultSource;
 
     if ('secure' in options) {
@@ -117,7 +120,11 @@ function Application (clientAccessToken, options) {
     }
 
     var _http = self.secure ? https : http;
-    self._agent = new _http.Agent({ keepAlive: true });
+    if (self.proxy) {
+        self._agent = new ProxyAgent(self.proxy);
+    } else {
+        self._agent = new _http.Agent({ keepAlive: true });
+    }
 }
 
 Application.prototype.contextsRequest = function(contexts, options) {
