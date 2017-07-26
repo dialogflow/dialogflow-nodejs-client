@@ -39,5 +39,8 @@
     "typing": "^0.1.9",
     "typings": "^2.0.0",
     "typescript": "^2.1.6"
+  },
+  "dependencies": {
+    "proxy-agent": "^2.1.0"
   }
 }
