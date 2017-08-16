@@ -3,7 +3,7 @@
 const apiai = require('apiai');
 const express = require('express');
 const bodyParser = require('body-parser');
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 const request = require('request');
 const JSONbig = require('json-bigint');
 const async = require('async');
@@ -14,6 +14,9 @@ const APIAI_LANG = process.env.APIAI_LANG || 'en';
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
 const FB_TEXT_LIMIT = 640;
+
+const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
+const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
 
 class FacebookBot {
     constructor() {
@@ -225,6 +228,7 @@ class FacebookBot {
                 .catch(err => callback(err));
         });
     }
+
     //which webhook event
     getEventText(event) {
         if (event.message) {
@@ -245,7 +249,47 @@ class FacebookBot {
 
     }
 
-    processEvent(event) {
+    getFacebookEvent(event) {
+        if (event.postback && event.postback.payload) {
+
+            let payload = event.postback.payload;
+
+            switch (payload) {
+                case FACEBOOK_WELCOME:
+                    return {name: FACEBOOK_WELCOME};
+
+                case FACEBOOK_LOCATION:
+                    return {name: FACEBOOK_LOCATION, data: event.postback.data}
+            }
+        }
+
+        return null;
+    }
+
+    processFacebookEvent(event) {
+        const sender = event.sender.id.toString();
+        const eventObject = this.getFacebookEvent(event);
+
+        if (eventObject) {
+
+            // Handle a text message from this sender
+            if (!this.sessionIds.has(sender)) {
+                this.sessionIds.set(sender, uuid.v4());
+            }
+
+            let apiaiRequest = this.apiAiService.eventRequest(eventObject,
+                {
+                    sessionId: this.sessionIds.get(sender),
+                    originalRequest: {
+                        data: event,
+                        source: "facebook"
+                    }
+                });
+            this.doApiAiRequest(apiaiRequest, sender);
+        }
+    }
+
+    processMessageEvent(event) {
         const sender = event.sender.id.toString();
         const text = this.getEventText(event);
 
@@ -266,31 +310,33 @@ class FacebookBot {
                         source: "facebook"
                     }
                 });
-            //get response from api.ai
-            apiaiRequest.on('response', (response) => {
-                if (this.isDefined(response.result) && this.isDefined(response.result.fulfillment)) {
-                    let responseText = response.result.fulfillment.speech;
-                    let responseData = response.result.fulfillment.data;
-                    let responseMessages = response.result.fulfillment.messages;
 
-                    let action = response.result.action;
-
-                    if (this.isDefined(responseData) && this.isDefined(responseData.facebook)) {
-                        let facebookResponseData = responseData.facebook;
-                        this.doDataResponse(sender, facebookResponseData);
-                    } else if (this.isDefined(responseMessages) && responseMessages.length > 0) {
-                        this.doRichContentResponse(sender, responseMessages);
-                    }
-                    else if (this.isDefined(responseText)) {
-                        this.doTextResponse(sender, responseText);
-                    }
-
-                }
-            });
-
-            apiaiRequest.on('error', (error) => console.error(error));
-            apiaiRequest.end();
+            this.doApiAiRequest(apiaiRequest, sender);
         }
+    }
+
+    doApiAiRequest(apiaiRequest, sender) {
+        apiaiRequest.on('response', (response) => {
+            if (this.isDefined(response.result) && this.isDefined(response.result.fulfillment)) {
+                let responseText = response.result.fulfillment.speech;
+                let responseData = response.result.fulfillment.data;
+                let responseMessages = response.result.fulfillment.messages;
+
+                if (this.isDefined(responseData) && this.isDefined(responseData.facebook)) {
+                    let facebookResponseData = responseData.facebook;
+                    this.doDataResponse(sender, facebookResponseData);
+                } else if (this.isDefined(responseMessages) && responseMessages.length > 0) {
+                    this.doRichContentResponse(sender, responseMessages);
+                }
+                else if (this.isDefined(responseText)) {
+                    this.doTextResponse(sender, responseText);
+                }
+
+            }
+        });
+
+        apiaiRequest.on('error', (error) => console.error(error));
+        apiaiRequest.end();
     }
 
     splitResponse(str) {
@@ -380,13 +426,36 @@ class FacebookBot {
     doSubscribeRequest() {
         request({
                 method: 'POST',
-                uri: "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=" + FB_PAGE_ACCESS_TOKEN
+                uri: `https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${FB_PAGE_ACCESS_TOKEN}`
             },
             (error, response, body) => {
                 if (error) {
                     console.error('Error while subscription: ', error);
                 } else {
                     console.log('Subscription result: ', response.body);
+                }
+            });
+    }
+
+    configureGetStartedEvent() {
+        request({
+                method: 'POST',
+                uri: `https://graph.facebook.com/v2.6/me/thread_settings?access_token=${FB_PAGE_ACCESS_TOKEN}`,
+                json: {
+                    setting_type: "call_to_actions",
+                    thread_state: "new_thread",
+                    call_to_actions: [
+                        {
+                            payload: FACEBOOK_WELCOME
+                        }
+                    ]
+                }
+            },
+            (error, response, body) => {
+                if (error) {
+                    console.error('Error while subscription', error);
+                } else {
+                    console.log('Subscription result', response.body);
                 }
             });
     }
@@ -419,7 +488,7 @@ const app = express();
 app.use(bodyParser.text({type: 'application/json'}));
 
 app.get('/webhook/', (req, res) => {
-    if (req.query['hub.verify_token'] == FB_VERIFY_TOKEN) {
+    if (req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
         res.send(req.query['hub.challenge']);
 
         setTimeout(() => {
@@ -440,9 +509,36 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
-                        if (event.message && !event.message.is_echo ||
-                            event.postback && event.postback.payload) {
-                            facebookBot.processEvent(event);
+                        if (event.message && !event.message.is_echo) {
+
+                            if (event.message.attachments) {
+                                let locations = event.message.attachments.filter(a => a.type === "location");
+
+                                // delete all locations from original message
+                                event.message.attachments = event.message.attachments.filter(a => a.type !== "location");
+
+                                if (locations.length > 0) {
+                                    locations.forEach(l => {
+                                        let locationEvent = {
+                                            sender: event.sender,
+                                            postback: {
+                                                payload: "FACEBOOK_LOCATION",
+                                                data: l.payload.coordinates
+                                            }
+                                        };
+
+                                        facebookBot.processFacebookEvent(locationEvent);
+                                    });
+                                }
+                            }
+
+                            facebookBot.processMessageEvent(event);
+                        } else if (event.postback && event.postback.payload) {
+                            if (event.postback.payload === "FACEBOOK_WELCOME") {
+                                facebookBot.processFacebookEvent(event);
+                            } else {
+                                facebookBot.processMessageEvent(event);
+                            }
                         }
                     });
                 }

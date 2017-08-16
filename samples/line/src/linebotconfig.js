@@ -2,78 +2,79 @@
 
 module.exports = class LineBotConfig {
 
-    get apiaiAccessToken() {
-        return this._apiaiAccessToken;
-    }
+  get apiaiAccessToken() {
+    return this._apiaiAccessToken;
+  }
 
-    set apiaiAccessToken(value) {
-        this._apiaiAccessToken = value;
-    }
+  set apiaiAccessToken(value) {
+    this._apiaiAccessToken = value;
+  }
 
-    get apiaiLang() {
-        return this._apiaiLang;
-    }
+  get apiaiLang() {
+    return this._apiaiLang;
+  }
 
-    set apiaiLang(value) {
-        this._apiaiLang = value;
-    }
+  set apiaiLang(value) {
+    this._apiaiLang = value;
+  }
 
-    get channelId() {
-        return this._channelId;
-    }
+  get channelId() {
+    return this._channelId;
+  }
 
-    set channelId(value) {
-        this._channelId = value;
-    }
+  set channelId(value) {
+    this._channelId = value;
+  }
 
-    get channelSecret() {
-        return this._channelSecret;
-    }
+  get channelSecret() {
+    return this._channelSecret;
+  }
 
-    set channelSecret(value) {
-        this._channelSecret = value;
-    }
+  set channelSecret(value) {
+    this._channelSecret = value;
+  }
 
-    get MID() {
-        return this._MID;
-    }
+  get channelAccessToken() {
+    return this._channelAccessToken;
+  }
 
-    set MID(value) {
-        this._MID = value;
-    }
+  set channelAccessToken(value) {
+    this._channelAccessToken = value;
+  }
 
-    get devConfig() {
-        return this._devConfig;
-    }
+  get devConfig() {
+    return this._devConfig;
+  }
 
-    set devConfig(value) {
-        this._devConfig = value;
-    }
+  set devConfig(value) {
+    this._devConfig = value;
+  }
 
-    constructor(apiaiAccessToken, apiaiLang, channelId, channelSecret, MID) {
-        this._apiaiAccessToken = apiaiAccessToken;
-        this._apiaiLang = apiaiLang;
-        this._channelId = channelId;
-        this._channelSecret = channelSecret;
-        this._MID = MID;
-    }
+  constructor(apiaiAccessToken, apiaiLang, channelId, channelSecret,
+      channelAccessToken) {
+    this._apiaiAccessToken = apiaiAccessToken;
+    this._apiaiLang = apiaiLang;
+    this._channelId = channelId;
+    this._channelSecret = channelSecret;
+    this._channelAccessToken = channelAccessToken;
+  }
 
-    toPlainDoc() {
-        return {
-            apiaiAccessToken: this._apiaiAccessToken,
-            apiaiLang: this._apiaiLang,
-            channelId: this._channelId,
-            channelSecret: this.channelSecret,
-            MID: this._MID
-        }
+  toPlainDoc() {
+    return {
+      apiaiAccessToken: this._apiaiAccessToken,
+      apiaiLang: this._apiaiLang,
+      channelId: this._channelId,
+      channelSecret: this.channelSecret,
+      channelAccessToken: this._channelAccessToken
     }
+  }
 
-    static fromPlainDoc(doc) {
-        return new LineBotConfig(
-            doc.apiaiAccessToken,
-            doc.apiaiLang,
-            doc.channelId,
-            doc.channelSecret,
-            doc.MID);
-    }
+  static fromPlainDoc(doc) {
+    return new LineBotConfig(
+        doc.apiaiAccessToken,
+        doc.apiaiLang,
+        doc.channelId,
+        doc.channelSecret,
+        doc.channelAccessToken);
+  }
 };

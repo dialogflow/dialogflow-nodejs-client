@@ -1,0 +1,10 @@
+# Change the env values according to your API.AI and Line dashboard
+
+runtime: nodejs
+env: flex
+env_variables:
+  APIAI_ACCESS_TOKEN: ''
+  APIAI_LANG: 'en'
+  LINE_CHANNEL_ID: ''
+  LINE_CHANNEL_SECRET: ''
+  LINE_CHANNEL_ACCESS_TOKEN: ''

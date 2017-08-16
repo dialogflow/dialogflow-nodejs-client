@@ -50,49 +50,67 @@ module.exports = class TropoBot {
             let chatId = req.body.session.from.id;
             let messageText = req.body.session.initialText;
 
-            console.log(chatId, messageText);
-
             if (messageText) {
                 if (!this._sessionIds.has(chatId)) {
-                    this._sessionIds.set(chatId, uuid.v1());
+                    this._sessionIds.set(chatId, uuid.v4());
                 }
+
+                let sessionId = this._sessionIds.get(chatId);
+
+                console.log(chatId, messageText);
 
                 let apiaiRequest = this._apiaiService.textRequest(messageText,
                     {
-                        sessionId: this._sessionIds.get(chatId)
+                        sessionId: sessionId,
+                        originalRequest: {
+                            data: req.body.session,
+                            source: "tropo"
+                        }
                     });
 
                 apiaiRequest.on('response', (response) => {
                     if (TropoBot.isDefined(response.result)) {
-                        let responseText = response.result.fulfillment.speech;
+                        let responseMessages = response.result.fulfillment.messages;
+                        let tropoMessages = [];
 
-                        if (TropoBot.isDefined(responseText)) {
-                            console.log('Response as text message');
+                        responseMessages.forEach((responseCard) => {
+                            // non-ASCII character for double quotes needs to be converted back to double quotes
+                            let speech = responseCard.speech.replace('“', '"').replace('”', '"');
 
-                            res.status(200).json({
-                                tropo: [{say: {value: responseText}}]
-                            });
+                            if (TropoBot.isDefined(speech)) {
+                                tropoMessages.push({say: {value: speech}});
 
+                                // NOTE: Tropo suggested this delay between each message to guarantee SMS delivery order
+                                tropoMessages.push({wait: {milliseconds: 2500}});
+                            }
+                        });
+
+                        // Remove last "wait"
+                        tropoMessages.pop();
+
+                        if (tropoMessages.length > 0) {
+                            console.log(chatId, "Responding " + tropoMessages.length + " text messages (status: 200)");
+                            res.setHeader("Content-Type", "application/json");
+                            res.status(200).end(JSON.stringify({tropo: tropoMessages}));
                         } else {
-                            console.log('Received empty speech');
-                            return res.status(400).end('Received empty speech');
+                            console.log(chatId, 'Responding without any messages (status: 400)');
+                            res.status(400).end('Received empty speech');
                         }
                     } else {
-                        console.log('Received empty result');
-                        return res.status(400).end('Received empty result');
+                        console.log(chatId, 'Received empty result (status: 400)');
+                        res.status(400).end('Received empty result');
                     }
                 });
 
                 apiaiRequest.on('error', (error) => console.error(error));
                 apiaiRequest.end();
-            }
-            else {
-                console.log('Empty message');
-                return res.status(400).end('Empty message');
+            } else {
+                console.log(chatId, 'Empty message');
+                res.status(400).end('Empty message');
             }
         } else {
-            console.log('Empty message');
-            return res.status(400).end('Empty message');
+            console.log(chatId, 'Empty message');
+            res.status(400).end('Empty message');
         }
     }
 

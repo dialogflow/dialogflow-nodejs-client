@@ -22,12 +22,12 @@
       "description": "Channel Secret from Line dashboard",
       "value": ""
     },
-    "LINE_MID": {
-      "description": "MID from Line dashboard",
+    "LINE_CHANNEL_ACCESS_TOKEN": {
+      "description": "Channel Access Token from Line dashboard",
       "value": ""
     }
   },
   "engines": {
-    "node": "5.10.1"
+    "node": "6.9.5"
   }
 }
