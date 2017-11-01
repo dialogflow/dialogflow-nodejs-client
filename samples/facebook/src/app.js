@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 'use strict';
 
 const apiai = require('apiai');
@@ -33,6 +33,8 @@ const FB_TEXT_LIMIT = 640;
 
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
 const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
+const FACEBOOK_IMAGE = "FACEBOOK_IMAGE";
+const FACEBOOK_VIDEO = "FACEBOOK_VIDEO";
 
 class FacebookBot {
     constructor() {
@@ -276,6 +278,12 @@ class FacebookBot {
 
                 case FACEBOOK_LOCATION:
                     return {name: FACEBOOK_LOCATION, data: event.postback.data}
+
+                case FACEBOOK_IMAGE:
+                    return {name: FACEBOOK_IMAGE, data: event.postback.data}
+
+                case FACEBOOK_VIDEO:
+                    return {name: FACEBOOK_VIDEO, data: event.postback.data}
             }
         }
 
@@ -518,6 +526,7 @@ app.get('/webhook/', (req, res) => {
 app.post('/webhook/', (req, res) => {
     try {
         const data = JSONbig.parse(req.body);
+        console.log('POST: %s', JSON.stringify(data));
 
         if (data.entry) {
             let entries = data.entry;
@@ -525,6 +534,7 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
+                        console.log('Event: %s', JSON.stringify(event));
                         if (event.message && !event.message.is_echo) {
 
                             if (event.message.attachments) {
@@ -538,7 +548,7 @@ app.post('/webhook/', (req, res) => {
                                         let locationEvent = {
                                             sender: event.sender,
                                             postback: {
-                                                payload: "FACEBOOK_LOCATION",
+                                                payload: FACEBOOK_LOCATION,
                                                 data: l.payload.coordinates
                                             }
                                         };
@@ -546,11 +556,46 @@ app.post('/webhook/', (req, res) => {
                                         facebookBot.processFacebookEvent(locationEvent);
                                     });
                                 }
+
+                                let images = event.message.attachments.filter(a => a.type === "image");
+                                event.message.attachments = event.message.attachments.filter(a => a.type !== "image");
+                                if (images.length > 0) {
+                                    images.forEach(i => {
+                                        let imageEvent = {
+                                            sender: event.sender,
+                                            postback: {
+                                                payload: FACEBOOK_IMAGE,
+                                                data: i.payload
+                                            }
+                                        };
+
+                                        facebookBot.processFacebookEvent(imageEvent);
+                                    });
+                                }
+
+                                let videos = event.message.attachments.filter(a => a.type === "video");
+                                event.message.attachments = event.message.attachments.filter(a => a.type !== "video");
+                                if (videos.length > 0) {
+                                    videos.forEach(i => {
+                                        let videoEvent = {
+                                            sender: event.sender,
+                                            postback: {
+                                                payload: FACEBOOK_VIDEO,
+                                                data: i.payload
+                                            }
+                                        };
+                                        facebookBot.processFacebookEvent(videoEvent);
+                                    });
+                                }
                             }
 
                             facebookBot.processMessageEvent(event);
                         } else if (event.postback && event.postback.payload) {
-                            if (event.postback.payload === "FACEBOOK_WELCOME") {
+                            if (event.postback.payload === FACEBOOK_WELCOME) {
+                                facebookBot.processFacebookEvent(event);
+                            } else if (event.postback.payload === FACEBOOK_IMAGE) {
+                                facebookBot.processFacebookEvent(event);
+                            } else if (event.postback.payload === FACEBOOK_VIDEO) {
                                 facebookBot.processFacebookEvent(event);
                             } else {
                                 facebookBot.processMessageEvent(event);
@@ -565,6 +610,7 @@ app.post('/webhook/', (req, res) => {
             status: "ok"
         });
     } catch (err) {
+        console.log(err)
         return res.status(400).json({
             status: "error",
             error: err
