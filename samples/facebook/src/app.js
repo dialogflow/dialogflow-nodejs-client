@@ -26,7 +26,9 @@ const async = require('async');
 
 const REST_PORT = (process.env.PORT || 5000);
 const APIAI_ACCESS_TOKEN = process.env.APIAI_ACCESS_TOKEN;
-const APIAI_LANG = process.env.APIAI_LANG || 'en';
+const DEFAULT_APIAI_LANG = process.env.APIAI_LANG || 'en';
+const ACCEPTED_APIAI_LANGS = process.env.ACCEPTED_APIAI_LANGS || ['en'];
+
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
 const FB_TEXT_LIMIT = 640;
@@ -34,13 +36,66 @@ const FB_TEXT_LIMIT = 640;
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
 const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
 
+const getLanguage = (locale) => {
+    if (!locale) return DEFAULT_APIAI_LANG;
+    const lang = locale.indexOf('_') > 0 ? locale.substring(0, locale.indexOf('_')) : locale;
+    return ACCEPTED_APIAI_LANGS.indexOf(lang) >= 0 ? lang : DEFAULT_APIAI_LANG;
+};
+
 class FacebookBot {
     constructor() {
-        this.apiAiService = apiai(APIAI_ACCESS_TOKEN, {language: APIAI_LANG, requestSource: "fb"});
+        this.apiAiService = apiai(APIAI_ACCESS_TOKEN, {language: DEFAULT_APIAI_LANG, requestSource: "fb"});
         this.sessionIds = new Map();
+        this.userData = new Map();
         this.messagesDelay = 200;
     }
 
+    getUserLocale(id) {
+        return this.getUserData(id)
+            .then((data) => data.locale);
+    }
+
+    getUserData(id) {
+        const saveAndResolve = (userData) => {
+            this.userData.set(id, userData);
+            return userData;
+        };
+
+        if (this.userData.has(id)) {
+            console.log('user data from cache', this.userData.get(id));
+            return Promise.resolve(this.userData.get(id));
+        }
+        return this.doUserDataRequest(id)
+            .then(saveAndResolve)
+            .catch(err => Promise.reject(err));
+    }
+
+    doUserDataRequest(id) {
+        const extractError = (error, response) => {
+          if (error) return error;
+          if (response && response.body) {
+              const body = JSON.parse(response.body);
+              if (body.error) return body.error;
+          }
+          return null;
+        };
+        return new Promise((resolve, reject) => {
+            request({
+                url: `https://graph.facebook.com/v2.6/${id}`,
+                qs: { fields: 'locale,first_name,last_name', access_token: FB_PAGE_ACCESS_TOKEN },
+                method: 'GET'
+            }, (error, response) => {
+                const errorObj = extractError(error, response);
+                if (errorObj) {
+                    console.error('Error getting  User Locale: ', errorObj);
+                    reject(errorObj);
+                    return;
+                }
+                console.log('Received user data from fb', response.body);
+                resolve(JSON.parse(response.body));
+            });
+        });
+    }
 
     doDataResponse(sender, facebookResponseData) {
         if (!Array.isArray(facebookResponseData)) {
@@ -301,7 +356,11 @@ class FacebookBot {
                         source: "facebook"
                     }
                 });
-            this.doApiAiRequest(apiaiRequest, sender);
+            this.getUserLocale(sender)
+                .then((locale) => {
+                    apiaiRequest.language = getLanguage(locale);
+                    this.doApiAiRequest(apiaiRequest, sender);
+                });
         }
     }
 
@@ -327,7 +386,11 @@ class FacebookBot {
                     }
                 });
 
-            this.doApiAiRequest(apiaiRequest, sender);
+            this.getUserLocale(sender)
+                .then((locale) => {
+                    apiaiRequest.language = getLanguage(locale);
+                    this.doApiAiRequest(apiaiRequest, sender);
+                });
         }
     }
 

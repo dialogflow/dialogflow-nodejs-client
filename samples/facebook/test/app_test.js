@@ -25,6 +25,7 @@ process.env['APIAI_ACCESS_TOKEN'] = APIAI_ACCESS_TOKEN;
 process.env['FB_VERIFY_TOKEN'] = FB_VERIFY_TOKEN;
 process.env['FB_PAGE_ACCESS_TOKEN'] = FB_PAGE_ACCESS_TOKEN;
 process.env['APIAI_LANG'] = APIAI_LANG;
+process.env['ACCEPTED_APIAI_LANGS'] = [ APIAI_LANG ];
 
 const supertest = require('supertest');
 const should = require('should');
