@@ -398,6 +398,7 @@ class FacebookBot {
                 qs: {access_token: FB_PAGE_ACCESS_TOKEN},
                 method: 'POST',
                 json: {
+                    'messaging_type': 'RESPONSE',
                     recipient: {id: sender},
                     message: messageData
                 }
@@ -422,6 +423,7 @@ class FacebookBot {
                 qs: {access_token: FB_PAGE_ACCESS_TOKEN},
                 method: 'POST',
                 json: {
+                    'messaging_type': 'RESPONSE',
                     recipient: {id: sender},
                     sender_action: action
                 }
