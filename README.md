@@ -2,7 +2,7 @@
 
 | Deprecated |
 |-------|
-| This Dialogflow client library and Dialogflow API V1 are deprecated and will be shut down on October 23th, 2019. Please migrate to Dialogflow API V2 and the [v2 client library](https://cloud.google.com/dialogflow-enterprise/docs/reference/libraries/nodejs) |
+| This Dialogflow client library and Dialogflow API V1 [have been deprecated and will be shut down on October 23th, 2019](https://blog.dialogflow.com/post/migrate-to-dialogflow-api-v2/). Please migrate to Dialogflow API V2 and the [v2 client library](https://cloud.google.com/dialogflow-enterprise/docs/reference/libraries/nodejs) |
 
 This plugin allows integrating agents from the [Api.ai](http://api.ai) natural language processing service with your Node.js application.
 
