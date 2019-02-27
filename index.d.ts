@@ -139,6 +139,20 @@ declare namespace apiai {
     }
 
     /**
+     * Contexts Request options.
+     */
+    interface GetContextsRequestOptions extends RequestOptions {
+        sessionId: string;
+    }
+
+    /**
+     * Contexts Request.
+     */
+    interface GetContextsRequest extends JSONApiRequest {
+        context: string;
+    }
+
+    /**
      * Delete Contexts Request options.
      */
     interface DeleteContextsRequestOptions extends RequestOptions {
@@ -227,6 +241,7 @@ declare namespace apiai {
         textRequest(query: string | [string], options: TextRequestOptions): TextRequest;
         eventRequest(event: Event, options: EventRequestOptions): EventRequest;
         contextsRequest(contexts: [any], options: ContextsRequestOptions): ContextsRequest;
+        getContextsRequest(context: string, options: GetContextsRequestOptions ): GetContextsRequest;
         deleteContextsRequest(options: DeleteContextsRequestOptions): DeleteContextsRequest;
         userEntitiesRequest(user_entities_body: UserEntitiesBody, options?: UserEntitiesRequestOptions): UserEntitiesRequest;
         // Text to speech (TTS) has been deprecated
