@@ -42,7 +42,7 @@ var UserEntitiesRequest = require('./user_entities_request').UserEntitiesRequest
 var version = '20150910';
 var language = 'en';
 var hostname = 'api.api.ai';
-var endpoint = '/v1/';
+var endpoint = '/api/';
 var defaultSource = 'node';
 
 /**
